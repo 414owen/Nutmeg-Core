@@ -5,7 +5,7 @@
 // the Software without restriction, including without limitation the rights to
 // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
 // the Software, and to permit persons to whom the Software is furnished to do so,
-//     subject to the following conditions:
+// subject to the following conditions:
 
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
@@ -20,11 +20,13 @@
 var D = document,
     W = window;
 
+function combineObjs(objs) {
+    objs.unshift({});
+    return Object.assign.apply(null, objs);
+}
+
 function setStyles(el, styles) {
-    styles.unshift({});
-    Object.assign(el.style, styles.reduce(function(acc, curr) {
-        return Object.assign(acc, curr);
-    }));
+    Object.assign(el.style, combineObjs(styles));
 }
 
 function appendChildren(el, children) {
@@ -100,12 +102,22 @@ elNames.forEach(function(elName) {
 });
 
 function mergeStyle(root) {
-    function merge(styleOne, styleTwo) {
-        return Object.assign({}, styleOne, styleTwo);
-    }
-    for (var style in root) {
-        if (style.depends !== undefined) {
-
+    function merge(style) {
+        var depends = style.depends;
+        delete style.depends;
+        if (depends !== undefined) {
+            for (var i = 0; i < depends.length; i++) {
+                var name = depends[i];
+                var substyle = root[name];
+                substyle = merge(substyle);
+                Object.assign(style, Object.assign({}, substyle, style));
+            }
         }
+        return style;
     }
+    for (var key in root) {
+        var style = root[key];
+        merge(style);
+    }
+    return root;
 }
