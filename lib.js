@@ -20,13 +20,10 @@
 var D = document,
     W = window;
 
-function combineObjs(objs) {
-    objs.unshift({});
-    return Object.assign.apply(null, objs);
-}
-
 function setStyles(el, styles) {
-    Object.assign(el.style, combineObjs(styles));
+    styles.forEach(function(style) {
+        Object.assign(el.style, style);
+    });
 }
 
 function appendChildren(el, children) {
@@ -102,24 +99,20 @@ elNames.forEach(function(elName) {
 });
 
 function mergeStyle(root) {
-    function merge(style) {
-        var depends = style.depends;
-        delete style.depends;
-        if (depends !== undefined) {
-            var subs = {};
-            for (var i = 0; i < depends.length; i++) {
-                var name = depends[i];
-                var substyle = root[name];
-                substyle = merge(substyle);
-                Object.assign(subs, substyle);
-            }
-            Object.assign(style, Object.assign(subs, style));
-        }
-        return style;
-    }
+    const styleGroups = {};
     for (var key in root) {
-        var style = root[key];
-        merge(style);
+        var styles = [];
+        function merge(style) {
+            var deps = style.depends;
+            if (deps !== undefined) {
+                deps.forEach(function(dep) {
+                    merge(root[dep]);
+                });
+            }
+            styles.push(style);
+        }
+        merge(root[key])
+        styleGroups[key] = styles;
     }
-    return root;
+    return styleGroups;
 }
