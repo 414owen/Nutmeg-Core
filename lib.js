@@ -106,12 +106,14 @@ function mergeStyle(root) {
         var depends = style.depends;
         delete style.depends;
         if (depends !== undefined) {
+            var subs = {};
             for (var i = 0; i < depends.length; i++) {
                 var name = depends[i];
                 var substyle = root[name];
                 substyle = merge(substyle);
-                Object.assign(style, Object.assign({}, substyle, style));
+                Object.assign(subs, substyle);
             }
+            Object.assign(style, Object.assign(subs, style));
         }
         return style;
     }
