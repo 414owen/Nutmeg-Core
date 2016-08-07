@@ -1,21 +1,33 @@
-// Copyright (c) 2016 Owen Shepherd
+/* 
+ *
+ * Copyright (c) 2016 Owen Shepherd
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of
-// this software and associated documentation files (the "Software"), to deal in
-// the Software without restriction, including without limitation the rights to
-// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-// the Software, and to permit persons to whom the Software is furnished to do so,
-// subject to the following conditions:
+ /*
+  *
+  * This is Nutmeg. a tiny client-side website generator.
+  * See https://github.com/414owen/Nutmeg
+  *
+  */
 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var D = document,
     W = window;
@@ -38,6 +50,15 @@ function setClasses(el, classes) {
     });
 }
 
+function addClickEvent(el, event) {
+    el.onclick = function() {
+        if (el.onclick !== undefined) {
+            el.onclick();
+        }
+        event();
+    }
+}
+
 function elify(el) {
     function elified() {
         var scope = this;
@@ -45,19 +66,25 @@ function elify(el) {
         this.append = function(children) {
             appendChildren(this.val, children);
             return scope;
-        }
+        };
         this.onclick = function(todo) {
             scope.val.onclick = todo;
             return scope;
-        }
+        };
+        this.link = function(url) {
+            scope.onclick(function() {
+                window.location = url;
+            });
+            return scope.style([{cursor: 'pointer'}]);
+        };
         this.style = function(styles) {
             setStyles(scope.val, styles);
             return scope;
-       }
-       this.classes = function(classes) {
+        };
+        this.classes = function(classes) {
             setClasses(scope.val, classes);
             return scope;
-       }
+        };
     }
     return new elified();
 
@@ -90,7 +117,9 @@ var elNames = [
     'li',
     'br',
     'i'
-]
+];
+
+function bod() {return elify(D.body);}
 
 elNames.forEach(function(elName) {
     window[elName] = function() {
@@ -112,6 +141,7 @@ function mergeStyle(root) {
             styles.push(style);
         }
         merge(root[key])
+        delete styles.depends;
         styleGroups[key] = styles;
     }
     return styleGroups;
