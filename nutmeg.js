@@ -50,32 +50,32 @@ function nutmeg() {
         }
     };
 
-    nutmeg.elify = function(el) {
-        function elified() {
-            var scope = this;
-            scope.val = el;
-            scope.append = function(children) {
-                appendChildren(scope.val, children);
-                return scope;
+    nutmeg.elify = function(elem) {
+        function elified(el) {
+            var elified = this;
+            elified.val = el;
+            elified.append = function(children) {
+                appendChildren(elified.val, children);
+                return elified;
             };
-            scope.onclick = function(todo) {
-                addClickEvent(scope.val, todo);
-                return scope;
+            elified.onclick = function(todo) {
+                addClickEvent(elified.val, todo);
+                return elified;
             };
-            scope.link = function(url) {
-                addClickEvent(scope.val, function() {W.location = url;});
-                return scope.style([{cursor: 'pointer'}]);
+            elified.link = function(url) {
+                addClickEvent(elified.val, function() {W.location = url;});
+                return elified.style([{cursor: 'pointer'}]);
             };
-            scope.style = function(styles) {
-                setStyles(scope.val, styles);
-                return scope;
+            elified.style = function(styles) {
+                setStyles(elified.val, styles);
+                return elified;
             };
-            scope.classes = function(classes) {
-                setClasses(scope.val, classes);
-                return scope;
+            elified.classes = function(classes) {
+                setClasses(elified.val, classes);
+                return elified;
             };
         }
-        return new elified();
+        return new elified(elem);
     };
 
     nutmeg.text = function(text) {
@@ -116,16 +116,14 @@ function nutmeg() {
         for (var key in root) {
             var styles = [];
             function merge(style) {
-                var deps = style.depends;
-                if (deps !== undefined) {
-                    deps.forEach(function(dep) {
+                if (style.depends !== undefined) {
+                    style.depends.forEach(function(dep) {
                         merge(root[dep]);
                     });
                 }
                 styles.push(style);
             }
             merge(root[key])
-            delete styles.depends;
             styleGroups[key] = styles;
         }
         return styleGroups;
