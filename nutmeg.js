@@ -1,4 +1,4 @@
-/* 
+/**
  *
  * @license
  * Copyright (c) 2016 Owen Shepherd
@@ -7,7 +7,7 @@
  *
  */
 
- /*
+ /**
   * 
   * @preserve
   * This is Nutmeg. a tiny client-side website generator.
@@ -16,8 +16,8 @@
   */
 
 function nutmeg() {    
-    this.D = document;
-    this.W = window;
+    var D = document;
+    var W = window;
     var nutmeg = {};
 
     var setStyles = function(el, styles) {
@@ -48,7 +48,7 @@ function nutmeg() {
     };
 
     nutmeg.elify = function(el) {
-        return new function () {
+        function elified() {
             var scope = this;
             this.val = el;
             this.append = function(children) {
@@ -72,6 +72,7 @@ function nutmeg() {
                 return scope;
             };
         }
+        return new elified();
     };
 
     nutmeg.text = function(text) {
@@ -99,7 +100,7 @@ function nutmeg() {
         'i'
     ];
 
-    nutmeg.bod = function() {return elify(D.body);}
+    nutmeg.body = function() {return elify(D.body);}
 
     elNames.forEach(function(elName) {
         nutmeg[elName] = function() {
@@ -132,6 +133,6 @@ function nutmeg() {
             W[key] = nutmeg[key];
         });
     }
-    debugger;
+
     return nutmeg;
 }
