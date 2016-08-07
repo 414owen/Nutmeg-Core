@@ -39,35 +39,38 @@ function nutmeg() {
     };
 
     var addClickEvent = function(el, event) {
-        el.onclick = function() {
-            if (el.onclick !== undefined) {
-                el.onclick();
-            }
-            event();
+        var curr = el.onclick;
+        if (curr === null) {
+            el.onclick = event;
+        } else {
+            el.onclick = function() {
+                curr();
+                event();
+            };
         }
     };
 
     nutmeg.elify = function(el) {
         function elified() {
             var scope = this;
-            this.val = el;
-            this.append = function(children) {
+            scope.val = el;
+            scope.append = function(children) {
                 appendChildren(scope.val, children);
                 return scope;
             };
-            this.onclick = function(todo) {
+            scope.onclick = function(todo) {
                 addClickEvent(scope.val, todo);
                 return scope;
             };
-            this.link = function(url) {
-                addClickEvent(function() {W.location = url;});
+            scope.link = function(url) {
+                addClickEvent(scope.val, function() {W.location = url;});
                 return scope.style([{cursor: 'pointer'}]);
             };
-            this.style = function(styles) {
+            scope.style = function(styles) {
                 setStyles(scope.val, styles);
                 return scope;
             };
-            this.classes = function(classes) {
+            scope.classes = function(classes) {
                 setClasses(scope.val, classes);
                 return scope;
             };
