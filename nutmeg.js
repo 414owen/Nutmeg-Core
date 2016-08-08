@@ -1,13 +1,13 @@
-/*
- *
+/**
+ * @license
  * Copyright (c) 2016 Owen Shepherd
  * This software is open-source under the MIT license.
  * The full license can be viewed here: https://opensource.org/licenses/MIT
  *
  */
 
- /*
-  * 
+ /**
+  * @preserve
   * This is Nutmeg. a tiny client-side website generator.
   * Homepage: https://github.com/414owen/Nutmeg
   *
