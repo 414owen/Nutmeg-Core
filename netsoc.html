@@ -15,16 +15,17 @@ window.onload = function() {
                 text('Owen Shepherd'),
                 div(
                     div(
-                        div(
-                           // [['github', 'https://github.com/414owen'],
-                           //  ['bitbucket', 'https://bitbucket.org/shephero/'],
-                           //  ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
-                           //  ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
-                           //  .map(function(button) {
-                           //      return i().style(style.icon)
-                           //              .classes(['fa', 'fa-' + button[0]])
-                           //              .link(button[1]);
-                           //  })
+                        div()
+                        .append(
+                           [['github', 'https://github.com/414owen'],
+                            ['bitbucket', 'https://bitbucket.org/shephero/'],
+                            ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
+                            ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
+                            .map(function(button) {
+                                return i().style(style.icon)
+                                        .classes(['fa', 'fa-' + button[0]])
+                                        .link(button[1]);
+                            })
                         ).style(style.icons)
                     ).style(style.centerHor)
                 ).style(style.hline)
