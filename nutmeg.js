@@ -50,7 +50,6 @@ function nutmeg() {
 
     nutmeg.elify = function(elem) {
         function elified(el) {
-            var elified = this;
             elified.val = el;
             elified.append = function(children) {
                 appendChildren(elified.val, children);
@@ -94,15 +93,42 @@ function nutmeg() {
         'ul',
         'li',
         'br',
-        'i'
+        'i',
+        'b',
+        'pre',
+        'item,',
+        'nav',
+        'footer',
+        'header',
+        'audio',
+        'video',
+        'canvas',
+        'script',
+        'noscript',
+        'table',
+        'tbody',
+        'td',
+        'tfoot',
+        'th',
+        'button',
+        'input',
+        'select',
+        'datalist',
+        'form',
+        'label',
+        'meter',
+        'progress',
+        'textarea',
+        'menu',
+        'menuitem'
     ];
 
-    nutmeg.body = function() {return elify(D.body).append(Array.from(arguments));}
+    nutmeg.body = nutmeg.elify(D.body);
     nutmeg.text = function(text) {return nutmeg.elify(D.createTextNode(text));};
 
     elNames.forEach(function(elName) {
         nutmeg[elName] = function() {
-            return elify(D.createElement(elName)).append(Array.from(arguments));
+            return elify(D.createElement(elName));
         }
     });
 

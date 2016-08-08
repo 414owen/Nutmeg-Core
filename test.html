@@ -6,7 +6,7 @@
 
 nutmeg().global();
 window.onload = function() {
-	body(
+	body.style(style.base)(
 		div(
 			text("Hello World"),
 			div(
@@ -17,7 +17,7 @@ window.onload = function() {
 				li(text('List item 2'))
 			)
 		)
-	).style(style.base)
+	)
 };
 
 var style = mergeStyle({
