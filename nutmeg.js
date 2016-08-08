@@ -50,6 +50,7 @@ function nutmeg() {
 
     nutmeg.elify = function(elem) {
         function elified(el) {
+            var elified = this;
             elified.val = el;
             elified.append = function(children) {
                 appendChildren(elified.val, children);
@@ -73,6 +74,10 @@ function nutmeg() {
             };
         }
         return new elified(elem);
+    };
+
+    nutmeg.text = function(text) {
+        return nutmeg.elify(D.createTextNode(text));
     };
 
     var elNames = [
@@ -123,12 +128,11 @@ function nutmeg() {
         'menuitem'
     ];
 
-    nutmeg.body = nutmeg.elify(D.body);
-    nutmeg.text = function(text) {return nutmeg.elify(D.createTextNode(text));};
+    nutmeg.body = function() {return elify(D.body).append(Array.from(arguments));};
 
     elNames.forEach(function(elName) {
         nutmeg[elName] = function() {
-            return elify(D.createElement(elName));
+            return elify(D.createElement(elName)).append(Array.from(arguments));
         }
     });
 
