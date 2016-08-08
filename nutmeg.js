@@ -72,6 +72,14 @@ function nutmeg() {
                 setClasses(elified.val, classes);
                 return elified;
             };
+            elified.src = function(source) {
+                el.src = source;
+                return elified;
+            };
+            elified.href = function(ref) {
+                el.href = ref;
+                return elified;
+            };
         }
         return new elified(elem);
     };
