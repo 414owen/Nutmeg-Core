@@ -76,10 +76,6 @@ function nutmeg() {
         return new elified(elem);
     };
 
-    nutmeg.text = function(text) {
-        return nutmeg.elify(D.createTextNode(text));
-    };
-
     var elNames = [
         'div',
         'span',
@@ -101,11 +97,12 @@ function nutmeg() {
         'i'
     ];
 
-    nutmeg.body = function() {return elify(D.body);}
+    nutmeg.body = function() {return elify(D.body).append(Array.from(arguments));}
+    nutmeg.text = function(text) {return nutmeg.elify(D.createTextNode(text));};
 
     elNames.forEach(function(elName) {
         nutmeg[elName] = function() {
-            return elify(D.createElement(elName));
+            return elify(D.createElement(elName)).append(Array.from(arguments));
         }
     });
 
