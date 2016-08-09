@@ -109,7 +109,7 @@ function nutmeg() {
         'i',
         'b',
         'pre',
-        'item,',
+        'item',
         'nav',
         'footer',
         'header',
