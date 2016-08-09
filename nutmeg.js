@@ -53,26 +53,25 @@ function nutmeg() {
             elified.append(Array.from(arguments));
             return elified;
         }
-
         elified.val = elem;
         elified.append = function(children) {
-            appendChildren(elified.val, children);
+            appendChildren(elem, children);
             return elified;
         };
         elified.onclick = function(todo) {
-            addClickEvent(elified.val, todo);
+            addClickEvent(elem, todo);
             return elified;
         };
         elified.link = function(url) {
-            addClickEvent(elified.val, function() {W.location = url;});
+            addClickEvent(elem, function() {W.location = url;});
             return elified.style([{cursor: 'pointer'}]);
         };
         elified.style = function(styles) {
-            setStyles(elified.val, styles);
+            setStyles(elem, styles);
             return elified;
         };
         elified.classes = function(classes) {
-            setClasses(elified.val, classes);
+            setClasses(elem, classes);
             return elified;
         };
         elified.src = function(source) {
