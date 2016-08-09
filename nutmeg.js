@@ -67,7 +67,7 @@ function nutmeg() {
             return elified.style([{cursor: 'pointer'}]);
         };
         elified.style = function(styles) {
-            setStyles(elem, styles);
+            Array.from(arguments).forEach(function(arg) {setStyles(elem, arg)});
             return elified;
         };
         elified.classes = function(classes) {

@@ -13,22 +13,20 @@ window.onload = function() {
         div(
             h1(
                 text('This Is Nutmeg'),
+                div().style(style.hline),
                 div(
-                    div(
-                        div.apply(null,
-                           [['github', 'https://github.com/414owen'],
-                            ['bitbucket', 'https://bitbucket.org/shephero/'],
-                            ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
-                            ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
-                            .map(function(button) {
-                                return i().style(style.icon)
-                                        .classes(['fa', 'fa-' + button[0]])
-                                        .link(button[1]);
-                            })
-                        ).style(style.icons)
-                    ).style(style.centerHor)
-                ).style(style.hline)
-            ).style(style.inline).style(style.name)
+                    div.apply(null,
+                       [['github', 'https://github.com/414owen'],
+                        ['bitbucket', 'https://bitbucket.org/shephero/'],
+                        ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
+                        ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
+                        .map(function(button) {
+                            return i().classes(['fa', 'fa-' + button[0]])
+                                    .link(button[1]);
+                        })
+                    ).style(style.icons)
+                ).style(style.centerHor)
+            ).style(style.inline, style.name)
         ).style(style.center)
     )
 }
@@ -95,13 +93,6 @@ var style = mergeStyle({
     hline: {
         depends: ['lower'],
         borderTop: '1px solid'
-    },
-    icon: {
-        width: '2rem',
-        height: '2rem',
-        hover: {
-
-        }
     },
     lower: {
         marginTop: '0.5rem'
