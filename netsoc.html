@@ -9,7 +9,7 @@
 
 nutmeg().global();
 window.onload = function() {
-    body(
+    body().style(style.body)(
         div(
             h1(
                 text('This Is Nutmeg'),
@@ -31,7 +31,7 @@ window.onload = function() {
                 ).style(style.hline)
             ).style(style.inline).style(style.name)
         ).style(style.center)
-    ).style(style.body)
+    )
 }
 
 var style = mergeStyle({
