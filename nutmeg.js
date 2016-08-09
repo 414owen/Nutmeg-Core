@@ -13,7 +13,7 @@
   *
   */
 
-function nutmeg() {    
+function nutmeg() {
     var D = document;
     var W = window;
     var nutmeg = {};
@@ -49,39 +49,42 @@ function nutmeg() {
     };
 
     nutmeg.elify = function(elem) {
-        function elified(el) {
-            var elified = this;
-            elified.val = el;
-            elified.append = function(children) {
-                appendChildren(elified.val, children);
-                return elified;
-            };
-            elified.onclick = function(todo) {
-                addClickEvent(elified.val, todo);
-                return elified;
-            };
-            elified.link = function(url) {
-                addClickEvent(elified.val, function() {W.location = url;});
-                return elified.style([{cursor: 'pointer'}]);
-            };
-            elified.style = function(styles) {
-                setStyles(elified.val, styles);
-                return elified;
-            };
-            elified.classes = function(classes) {
-                setClasses(elified.val, classes);
-                return elified;
-            };
-            elified.src = function(source) {
-                el.src = source;
-                return elified;
-            };
-            elified.href = function(ref) {
-                el.href = ref;
-                return elified;
-            };
+        var elified = function() {
+            elified.append(Array.from(arguments));
+            return elified;
         }
-        return new elified(elem);
+
+        elified.val = elem;
+        elified.append = function(children) {
+            appendChildren(elified.val, children);
+            return elified;
+        };
+        elified.onclick = function(todo) {
+            addClickEvent(elified.val, todo);
+            return elified;
+        };
+        elified.link = function(url) {
+            addClickEvent(elified.val, function() {W.location = url;});
+            return elified.style([{cursor: 'pointer'}]);
+        };
+        elified.style = function(styles) {
+            setStyles(elified.val, styles);
+            return elified;
+        };
+        elified.classes = function(classes) {
+            setClasses(elified.val, classes);
+            return elified;
+        };
+        elified.src = function(source) {
+            elem.src = source;
+            return elified;
+        };
+        elified.href = function(ref) {
+            elem.href = ref;
+            return elified;
+        };
+
+        return elified;
     };
 
     nutmeg.text = function(text) {
@@ -109,7 +112,7 @@ function nutmeg() {
         'i',
         'b',
         'pre',
-        'item,',
+        'item',
         'nav',
         'footer',
         'header',
