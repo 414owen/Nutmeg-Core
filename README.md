@@ -1,5 +1,5 @@
 # Nutmeg
-A tiny clientside Website generator.
+A tiny client-side website generator.
 
 ## Why?
 
