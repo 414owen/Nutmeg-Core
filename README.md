@@ -65,7 +65,7 @@ nutmeg().global();
 
 // Important! This function will be called when the browser is ready to use
 // Nutmeg.
-document.onload = function() {
+window.onload = function() {
 
 // Need to attach this stuff to the page somehow, we do that with a body 
 // function
