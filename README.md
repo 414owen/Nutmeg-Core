@@ -19,3 +19,13 @@ A tiny clientside Website generator.
 	* Try to do too many things
 	* Are massive libraries
 	* Dictate code style / data flow
+
+## Examples
+
+### Hello World
+
+```
+div(
+    text('Hello World')
+)
+```
