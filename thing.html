@@ -1,0 +1,31 @@
+<html>
+<script src="nutmeg.js"></script>
+<script>
+
+nutmeg().global();
+document.onload = function() {
+
+// Other examples will not include surrounding HTML, or
+// the above two functions, but they are both very important!
+
+body(
+	div(
+		h1('Nutmeg'),
+		'Hello World',
+		div(
+			div(
+				"Don't disturb my nest!",
+
+				"Thanks.",
+
+				a('Take me to the nutmeg repo').href('https://github.com/414owen/Nutmeg')
+			)
+		)
+	)
+)
+
+}
+</script>
+<body>
+</body>
+</html>

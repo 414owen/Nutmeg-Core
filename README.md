@@ -30,7 +30,7 @@ A tiny clientside Website generator.
 <script>
 
 nutmeg().global();
-document.onload = function() {
+window.onload = function() {
 
 // Other examples will not include surrounding HTML, or
 // the above two functions, but they are both very important!
@@ -42,7 +42,9 @@ body(
 		div(
 			div(
 				"Don't disturb my nest!",
+				br(),
 				"Thanks.",
+				br(),
 				a('Take me to the nutmeg repo').href('https://github.com/414owen/Nutmeg')
 			)
 		)
