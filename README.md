@@ -58,32 +58,31 @@ body(
 </html>
 ```
 
-### Explanation:
+### Repetition:
 
 ```
-// Need to attach this stuff to the page somehow, we do that with a body 
-// function
-body(
+var curr = 1;
+var prev = 0;
+body().style(style.bod)(
+    Array(1000).fill(0).map(function (fib, ind) {
+        var tmp = curr;
+        curr += prev;
+        prev = tmp;
+        return div(prev).style(style.fib);
+    })
+);
+};
 
-	// Elements retain their HTML-y names
-	div(
-
-		// Render some text (woah!)
-		h1('Nutmeg'),
-		'Hello World',
-
-		// The code retains the same basic structure as HTML
-		div(
-			div(
-				"Don't disturb my nest!",
-				br(),
-				"Thanks.",
-				br(),
-				a('Take me to the nutmeg repo')
-                    .href('https://github.com/414owen/Nutmeg')
-			)
-		)
-	),
-
-)
+var style = mergeStyle({
+    bod: {
+        backgroundColor: "#222",
+        color: "#0f0"
+    },
+    fib: {
+        border: '1px solid #ddd',
+        margin: '0.5rem',
+        display: 'inline-block',
+        padding: '0.5rem'
+    }
+});
 ```
