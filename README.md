@@ -20,40 +20,33 @@ A tiny clientside Website generator.
 	* Are massive libraries
 	* Dictate code style / data flow
 
-## Explanations:
+## Examples:
+
+### Basics:
 
 ```
 <html>
 <script src="nutmeg.js"></script>
 <script>
 
-// Let's make our elements global so we don't have to do nutmeg.div(),
-// Because Nutmeg is all about syntactic minimalism.
 nutmeg().global();
-
-// Important! This function will be called when the browser is ready to use Nutmeg.
 document.onload = function() {
 
-// Need to attach this stuff to the page somehow, we do that with a body function
+// Other examples will not include surrounding HTML, or
+// the above two functions, but they are both very important!
+
 body(
-	// Elements retain their HTML-y names
 	div(
-		// Render some text (woah!)
 		h1('Nutmeg'),
 		'Hello World',
-		// The code retains the same basic structure as HTML
 		div(
 			div(
-				div(
-					div(
-						"Don't disturb my nest!",
-						"Thanks."
-					)
-				)
+				"Don't disturb my nest!",
+				"Thanks.",
+				a('Take me to the nutmeg repo').href('https://github.com/414owen/Nutmeg')
 			)
 		)
-	),
-	
+	)
 )
 
 }
@@ -61,4 +54,40 @@ body(
 <body>
 </body>
 </html>
+```
+
+### Explanation:
+
+```
+// Let's make our elements global so we don't have to type nutmeg.div(), 
+// Because Nutmeg is all about syntactic minimalism.
+nutmeg().global();
+
+// Important! This function will be called when the browser is ready to use
+// Nutmeg.
+document.onload = function() {
+
+// Need to attach this stuff to the page somehow, we do that with a body 
+// function
+body(
+
+	// Elements retain their HTML-y names
+	div(
+
+		// Render some text (woah!)
+		h1('Nutmeg'),
+		'Hello World',
+
+		// The code retains the same basic structure as HTML
+		div(
+			div(
+				"Don't disturb my nest!",
+				"Thanks.",
+				a('Take me to the nutmeg repo')
+                    .href('https://github.com/414owen/Nutmeg')
+			)
+		)
+	),
+
+)
 ```
