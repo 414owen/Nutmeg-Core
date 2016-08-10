@@ -75,7 +75,7 @@ function nutmeg() {
         };
         elified.link = function(url) {
             addClickEvent(elem, function() {W.location = url;});
-            return elified.style([{cursor: 'pointer'}]);
+            elified.style([{cursor: 'pointer'}]);
         };
         elified.style = function(styles) {
             Array.from(arguments).forEach(function(arg) {setStyles(elem, arg)});
@@ -84,10 +84,10 @@ function nutmeg() {
             setClasses(elem, classes);
         };
         elified.src = function(source) {
-            return elified.attr('src', source);
+            elified.attr('src', source);
         };
         elified.href = function(ref) {
-            return elified.attr('href', ref);
+            elified.attr('href', ref);
         };
         elified.attr = function(key, value) {
             elem.setAttribute(key, value);
