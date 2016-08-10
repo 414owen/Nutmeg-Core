@@ -30,8 +30,9 @@ function nutmeg() {
             case 'function':
                 el.appendChild(child.val);
                 break;
-            case 'string': 
-                appendChildren(el, text(child));
+            case 'string':
+                var node = D.createTextNode(child);
+                el.appendChild(node);
                 break;
             case 'object':
                 for (var i = 0; i < child.length; i++) {
@@ -99,10 +100,6 @@ function nutmeg() {
         }
 
         return elified;
-    };
-
-    nutmeg.text = function(text) {
-        return nutmeg.elify(D.createTextNode(text));
     };
 
     var elNames = [
