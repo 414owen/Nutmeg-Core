@@ -88,13 +88,15 @@ function nutmeg() {
             return elified;
         };
         elified.src = function(source) {
-            elem.src = source;
-            return elified;
+            return attr('src', source);
         };
         elified.href = function(ref) {
-            elem.href = ref;
-            return elified;
+            return attr('href', ref);
         };
+        elified.attr = function(key, value) {
+            elem[key] = value;
+            return elified;
+        }
 
         return elified;
     };
