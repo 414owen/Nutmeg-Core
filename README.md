@@ -61,14 +61,6 @@ body(
 ### Explanation:
 
 ```
-// Let's make our elements global so we don't have to type nutmeg.div(), 
-// Because Nutmeg is all about syntactic minimalism.
-nutmeg().global();
-
-// Important! This function will be called when the browser is ready to use
-// Nutmeg.
-window.onload = function() {
-
 // Need to attach this stuff to the page somehow, we do that with a body 
 // function
 body(
@@ -84,7 +76,9 @@ body(
 		div(
 			div(
 				"Don't disturb my nest!",
+				br(),
 				"Thanks.",
+				br(),
 				a('Take me to the nutmeg repo')
                     .href('https://github.com/414owen/Nutmeg')
 			)
