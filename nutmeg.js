@@ -67,14 +67,11 @@ function nutmeg() {
             elified.append(Array.from(arguments));
             return elified;
         }
-        elified.val = elem;
         elified.append = function(children) {
             appendChildren(elem, children);
-            return elified;
         };
         elified.onclick = function(todo) {
             addClickEvent(elem, todo);
-            return elified;
         };
         elified.link = function(url) {
             addClickEvent(elem, function() {W.location = url;});
@@ -82,11 +79,9 @@ function nutmeg() {
         };
         elified.style = function(styles) {
             Array.from(arguments).forEach(function(arg) {setStyles(elem, arg)});
-            return elified;
         };
         elified.classes = function(classes) {
             setClasses(elem, classes);
-            return elified;
         };
         elified.src = function(source) {
             return elified.attr('src', source);
@@ -96,9 +91,18 @@ function nutmeg() {
         };
         elified.attr = function(key, value) {
             elem.setAttribute(key, value);
-            return elified;
         }
-
+        for (var funkey in elified) {
+            var scope = function() {
+                var func = elified[funkey];
+                elified[funkey] = function() {
+                    func.apply(null, arguments);
+                    return elified;
+                };
+            };
+            scope();
+        }
+        elified.val = elem;
         return elified;
     };
 
