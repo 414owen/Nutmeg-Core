@@ -95,7 +95,7 @@ function nutmeg() {
             return elified.attr('href', ref);
         };
         elified.attr = function(key, value) {
-            elem[key] = value;
+            elem.setAttribute(key, value);
             return elified;
         }
 
