@@ -19,3 +19,26 @@ A tiny clientside Website generator.
 	* Try to do too many things
 	* Are massive libraries
 	* Dictate code style / data flow
+
+## Examples:
+
+```
+<html>
+<script src="nutmeg.js"></script>
+<script>
+nutmeg().global();
+document.onload = function() {
+
+body(
+	div(
+		h1('Nutmeg'),
+		'Hello World'
+	)
+)
+
+}
+</script>
+<body>
+</body>
+</html>
+```

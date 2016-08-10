@@ -24,11 +24,24 @@ function nutmeg() {
         });
     };
 
-    var appendChildren = function(el, children) {
-        children.forEach(function(child) {
-            el.appendChild(child.val);
-        });
-    };
+    var appendChildren = function(el, child) {
+        var type = typeof(child);
+        switch(type) {
+            case 'function':
+                el.appendChild(child.val);
+                break;
+            case 'string': 
+                appendChildren(el, text(child));
+                break;
+            case 'object':
+                for (var i = 0; i < child.length; i++) {
+                    appendChildren(el, child[i]);
+                }
+                break;
+            case 'number': 
+                appendChildren(el, child.toString())
+        }
+    }
 
     var setClasses = function(el, classes) {
         classes.forEach(function(classname) {

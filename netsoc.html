@@ -10,12 +10,12 @@
 nutmeg().global();
 window.onload = function() {
     body().style(style.body)(
-        div(
-            h1(
-                text('This Is Nutmeg'),
+        div().style(style.center)(
+            h1().style(style.inline, style.name)(
+                'This Is Nutmeg',
                 div().style(style.hline),
-                div(
-                    div.apply(null,
+                div().style(style.centerHor)(
+                    div(
                        [['github', 'https://github.com/414owen'],
                         ['bitbucket', 'https://bitbucket.org/shephero/'],
                         ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
@@ -25,9 +25,9 @@ window.onload = function() {
                                     .link(button[1]);
                         })
                     ).style(style.icons)
-                ).style(style.centerHor)
-            ).style(style.inline, style.name)
-        ).style(style.center)
+                )
+            )
+        )
     )
 }
 

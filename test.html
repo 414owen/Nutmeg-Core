@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nutmeg</title>
+<script async src="https://use.fontawesome.com/2926a1b865.js"></script>
+<link async href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet" type="text/css">
+<script src="nutmeg.js"></script>
+<script>
+
+nutmeg().global();
+window.onload = function() {
+    body().append(
+        ( Array.apply(null, Array(1000))).map(function() {return div(text('Hello World'));})
+    )
+}
+
+</script>
+<link rel="icon" type="image/png" sizes="32x32" href="http://owenowen.netsoc.ie/res/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="http://owenowen.netsoc.ie/res/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://owenowen.netsoc.ie/res/favicon-16x16.png">
+</head>
+
+<body>
+</body>
+
+</html>
