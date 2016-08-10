@@ -38,7 +38,7 @@ function nutmeg() {
                     appendChildren(el, child[i]);
                 }
                 break;
-            case 'number': 
+            default: 
                 appendChildren(el, child.toString())
         }
     }
