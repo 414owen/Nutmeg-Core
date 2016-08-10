@@ -20,40 +20,21 @@ A tiny clientside Website generator.
 	* Are massive libraries
 	* Dictate code style / data flow
 
-## Explanations:
+<<<<<<< HEAD
+## Examples:
 
 ```
 <html>
 <script src="nutmeg.js"></script>
 <script>
-
-// Let's make our elements global so we don't have to do nutmeg.div(),
-// Because Nutmeg is all about syntactic minimalism.
 nutmeg().global();
-
-// Important! This function will be called when the browser is ready to use Nutmeg.
 document.onload = function() {
 
-// Need to attach this stuff to the page somehow, we do that with a body function
 body(
-	// Elements retain their HTML-y names
 	div(
-		// Render some text (woah!)
 		h1('Nutmeg'),
-		'Hello World',
-		// The code retains the same basic structure as HTML
-		div(
-			div(
-				div(
-					div(
-						"Don't disturb my nest!",
-						"Thanks."
-					)
-				)
-			)
-		)
-	),
-	
+		'Hello World'
+	)
 )
 
 }
@@ -61,4 +42,14 @@ body(
 <body>
 </body>
 </html>
+=======
+## Examples
+
+### Hello World
+
+```
+div(
+    text('Hello World')
+)
+>>>>>>> 59279746d35c76eb8bfd9d97a70b09faecf447bf
 ```
