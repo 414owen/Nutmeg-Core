@@ -25,7 +25,7 @@ function nutmeg() {
     };
 
     function appendChildren(el, child) {
-        switch(typeof(child) {
+        switch(typeof(child)) {
             case 'function':
                 el.appendChild(child.val);
                 break;
