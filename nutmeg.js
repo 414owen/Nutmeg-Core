@@ -64,7 +64,7 @@ function nutmeg() {
 
     nutmeg.elify = function(elem) {
         var elified = function() {
-            elified.append(Array.from(arguments));
+            elified.append(arguments);
             return elified;
         }
         elified.append = function(children) {
@@ -154,11 +154,11 @@ function nutmeg() {
         'menuitem'
     ];
 
-    nutmeg.body = function() {return elify(D.body).append(Array.from(arguments));};
+    nutmeg.body = function() {return elify(D.body).append(arguments);};
 
     elNames.forEach(function(elName) {
         nutmeg[elName] = function() {
-            return elify(D.createElement(elName)).append(Array.from(arguments));
+            return elify(D.createElement(elName)).append(arguments);
         }
     });
 
