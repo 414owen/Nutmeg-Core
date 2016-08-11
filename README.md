@@ -89,21 +89,17 @@ properties look like camel-cased CSS.
 ```
 var style = mergeStyle({
     base: {
-        backgroundColor: '#333';,
-        margin: '0',
-        padding: '0',
-        border: '0'
-    }
+        backgroundColor: '#111'
+    },
     spaced: {
         margin: '0.5rem',
         padding: '0.5rem'
     },
     bordered: {
-        boxShadow: '0px 0px 6px #000',
-        borderRadius: '8px'  
+        borderRadius: '8px'
     },
     fib: {
-        depends: ['base', 'spaced', 'bordered'],
+        depends: ['spaced', 'bordered'],
         display: 'inline-block',
         backgroundColor: '#333',
         color: '#eee'
@@ -120,7 +116,7 @@ Now we'll go ahead and apply this style to all of our 'fib' divs above.
 
 ``` 
 ...
-body().style(style.body)(
+body().style(style.base)(
 ... 
         return div(oldp).style(style.fib);
 ...  

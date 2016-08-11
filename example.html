@@ -23,24 +23,20 @@ body().style(style.base)(
 
 var style = mergeStyle({
     base: {
-        backgroundColor: '#333',
-        margin: '0',
-        padding: '0',
-        border: '0'
+        backgroundColor: '#111'
     },
     spaced: {
         margin: '0.5rem',
         padding: '0.5rem'
     },
     bordered: {
-        boxShadow: '0px 0px 8px #fff',
-        borderRadius: '8px'  
+        borderRadius: '8px'
     },
     fib: {
-        depends: ['base', 'spaced', 'bordered'],
+        depends: ['spaced', 'bordered'],
         display: 'inline-block',
-        backgroundColor: '#ccc',
-        color: '#000'
+        backgroundColor: '#333',
+        color: '#eee'
     }
 });
 
