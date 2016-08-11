@@ -14,17 +14,17 @@
   */
 
 function nutmeg() {
-    var D = document;
-    var W = window;
-    var nutmeg = {};
+    var D = document,
+        W = window,
+        nutmeg = {};
 
-    var setStyles = function(el, styles) {
+    function setStyles(el, styles) {
         styles.forEach(function(style) {
             Object.assign(el.style, style);
         });
     };
 
-    var appendChildren = function(el, child) {
+    function appendChildren(el, child) {
         switch(typeof(child) {
             case 'function':
                 el.appendChild(child.val);
@@ -34,26 +34,25 @@ function nutmeg() {
                 el.appendChild(node);
                 break;
             case 'object':
-                for (var i = 0; i < child.length; i++) {
+                for (var i = 0; i < child.length; i++)
                     appendChildren(el, child[i]);
-                }
                 break;
             default: 
                 appendChildren(el, child.toString())
         }
     }
 
-    var setClasses = function(el, classes) {
+    function setClasses(el, classes) {
         classes.forEach(function(classname) {
             el.classList.add(classname);
         });
     };
 
-    var addClickEvent = function(el, event) {
+    function addClickEvent(el, event) {
         var curr = el.onclick;
-        if (curr === null) {
+        if (curr === null)
             el.onclick = event;
-        } else {
+        else {
             el.onclick = function() {
                 curr();
                 event();
