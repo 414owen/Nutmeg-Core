@@ -69,7 +69,7 @@ to body.
 var curr = 1;
 var prev = 0;
 body(
-    Array(1500).fill(0).map(function (fib, ind) {
+    Array(750).fill(0).map(function (fib, ind) {
         var oldc = curr, oldp = prev;
         curr += prev;
         prev = oldc;
@@ -88,6 +88,12 @@ properties look like camel-cased CSS.
 
 ```
 var style = mergeStyle({
+    base: {
+        backgroundColor: '#333';,
+        margin: '0',
+        padding: '0',
+        border: '0'
+    }
     spaced: {
         margin: '0.5rem',
         padding: '0.5rem'
@@ -97,7 +103,7 @@ var style = mergeStyle({
         borderRadius: '8px'  
     },
     fib: {
-        depends: ['spaced', 'bordered'],
+        depends: ['base', 'spaced', 'bordered'],
         display: 'inline-block',
         backgroundColor: '#333',
         color: '#eee'
@@ -113,6 +119,8 @@ your style, and can navigate to its dependencies easily if you need to.
 Now we'll go ahead and apply this style to all of our 'fib' divs above.
 
 ``` 
+...
+body().style(style.body)(
 ... 
         return div(oldp).style(style.fib);
 ...  

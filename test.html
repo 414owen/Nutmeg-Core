@@ -11,8 +11,8 @@ nutmeg().global();
 window.onload = function() {
 var curr = 1;
 var prev = 0;
-body(
-    Array(1500).fill(0).map(function (fib, ind) {
+body().style(style.base)(
+    Array(750).fill(0).map(function (fib, ind) {
         var oldc = curr, oldp = prev;
         curr += prev;
         prev = oldc;
@@ -22,16 +22,22 @@ body(
 };
 
 var style = mergeStyle({
+    base: {
+        backgroundColor: '#333',
+        margin: '0',
+        padding: '0',
+        border: '0'
+    },
     spaced: {
         margin: '0.5rem',
         padding: '0.5rem'
     },
     bordered: {
-        boxShadow: '0px 0px 6px #000',
+        boxShadow: '0px 0px 6px #fff',
         borderRadius: '8px'  
     },
     fib: {
-        depends: ['spaced', 'bordered'],
+        depends: ['base', 'spaced', 'bordered'],
         display: 'inline-block',
         backgroundColor: '#333',
         color: '#eee'
