@@ -9,10 +9,34 @@
 
 nutmeg().global();
 window.onload = function() {
-    body().append(
-        (Array(1000).fill(0)).map(function() {return div('Hello World');})
-    )
-}
+var curr = 1;
+var prev = 0;
+body(
+    Array(1500).fill(0).map(function (fib, ind) {
+        var oldc = curr, oldp = prev;
+        curr += prev;
+        prev = oldc;
+        return div(oldp).style(style.fib);
+    })
+);
+};
+
+var style = mergeStyle({
+    spaced: {
+        margin: '0.5rem',
+        padding: '0.5rem'
+    },
+    bordered: {
+        boxShadow: '0px 0px 6px #000',
+        borderRadius: '8px'  
+    },
+    fib: {
+        depends: ['spaced', 'bordered'],
+        display: 'inline-block',
+        backgroundColor: '#333',
+        color: '#eee'
+    }
+});
 
 </script>
 <link rel="icon" type="image/png" sizes="32x32" href="http://owenowen.netsoc.ie/res/favicon-32x32.png">

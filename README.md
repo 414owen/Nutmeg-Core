@@ -68,15 +68,14 @@ to body.
 ```
 var curr = 1;
 var prev = 0;
-body().style(style.bod)(
-    Array(1000).fill(0).map(function (fib, ind) {
-        var tmp = curr;
+body(
+    Array(1500).fill(0).map(function (fib, ind) {
+        var oldc = curr, oldp = prev;
         curr += prev;
-        prev = tmp;
-        return div(prev);
+        prev = oldc;
+        return div(oldp);
     })
 );
-};
 ```
 
 ### Styles:
@@ -89,18 +88,19 @@ properties look like camel-cased CSS.
 
 ```
 var style = mergeStyle({
-    bordered: {
-        border: '1px solid #ccc',
-        borderRadius: '4px'
-    },
-    fib: {
-        depends: ['bordered', 'spaced'],
-        border: '1px solid #ccc',
-        display: 'inline-block'
-    },
     spaced: {
         margin: '0.5rem',
         padding: '0.5rem'
+    },
+    bordered: {
+        boxShadow: '0px 0px 6px #000',
+        borderRadius: '8px'  
+    },
+    fib: {
+        depends: ['spaced', 'bordered'],
+        display: 'inline-block',
+        backgroundColor: '#333',
+        color: '#eee'
     }
 });
 ```
@@ -114,6 +114,6 @@ Now we'll go ahead and apply this style to all of our 'fib' divs above.
 
 ``` 
 ... 
-        return div(prev).style(style.fib); 
+        return div(oldp).style(style.fib);
 ...  
 ```

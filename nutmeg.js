@@ -89,7 +89,7 @@ function nutmeg() {
         };
         elified.attr = function(key, value) {
             elem.setAttribute(key, value);
-        }
+        };
         for (var funkey in elified) {
             var scope = function() {
                 var func = elified[funkey];
