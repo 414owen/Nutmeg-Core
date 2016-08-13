@@ -37,7 +37,7 @@ function nutmeg() {
                 for (var i = 0; i < child.length; i++)
                     appendChildren(el, child[i]);
                 break;
-            default: 
+            default:
                 appendChildren(el, child.toString())
         }
     }
@@ -81,15 +81,28 @@ function nutmeg() {
         elified.classes = function(classes) {
             setClasses(elem, classes);
         };
-        elified.src = function(source) {
-            elified.attr('src', source);
-        };
-        elified.href = function(ref) {
-            elified.attr('href', ref);
-        };
+        /** Change an attribute on the element. */
         elified.attr = function(key, value) {
             elem.setAttribute(key, value);
         };
+        /** Change a property on the element. */
+        elified.prop = function(key, value) {
+            elem[key] = value;
+        };
+
+        // Add attributes to elified.
+        attrNames.forEach(function(attrName) {
+            elified[attrName] = function(value) {
+                elem.setAttribute(attrName, value);
+            }
+        });
+        // Add properties to elified.
+        propNames.forEach(function(propName) {
+            elified[propName] = function(value) {
+                elem[propName] = value;
+            }
+        });
+
         for (var funkey in elified) {
             var scope = function() {
                 var func = elified[funkey];
@@ -152,6 +165,24 @@ function nutmeg() {
         'textarea',
         'menu',
         'menuitem'
+    ];
+    var attrNames = [
+        'alt',
+        'contenteditable',
+        'href',
+        'id',
+        'readonly',
+        'src',
+        'title',
+        'type',
+    ];
+    var propNames = [
+        'checked',
+        'disabled',
+        'height',
+        'selected',
+        'width',
+        'value',
     ];
 
     nutmeg.body = function() {return elify(D.body).append(arguments);};
