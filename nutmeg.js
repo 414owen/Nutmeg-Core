@@ -147,7 +147,7 @@ function nutmeg() {
         'label',
         'li',
         'menu',
-        'menuitem'
+        'menuitem',
         'meter',
         'nav',
         'noscript',
@@ -192,7 +192,7 @@ function nutmeg() {
         'onblur',
         'onchange',
         'onclick',
-        'ondblclick'
+        'ondblclick',
         'onfocus',
         'onkeydown',
         'onkeyup',
