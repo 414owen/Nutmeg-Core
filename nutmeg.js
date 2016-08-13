@@ -20,7 +20,9 @@ function nutmeg() {
 
     function setStyles(el, styles) {
         styles.forEach(function(style) {
-            Object.assign(el.style, style);
+            for (var key in style) {
+                el.style[key] = style[key];
+            }
         });
     };
 
@@ -76,7 +78,9 @@ function nutmeg() {
             elified.style([{cursor: 'pointer'}]);
         };
         elified.style = function(styles) {
-            Array.from(arguments).forEach(function(arg) {setStyles(elem, arg)});
+            // To array, to use forEach.
+            var args = Array.prototype.slice.call(arguments);
+            args.forEach(function(arg) {setStyles(elem, arg)});
         };
         elified.classes = function(classes) {
             setClasses(elem, classes);
