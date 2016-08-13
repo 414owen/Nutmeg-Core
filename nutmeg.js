@@ -93,6 +93,12 @@ function nutmeg() {
         elified.prop = function(key, value) {
             elem[key] = value;
         };
+        /** Remove all children of the element. */
+        elified.clear = function() {
+            while(elem.firstChild) {
+                elem.removeChild(elem.firstChild);
+            }
+        };
 
         // Add attributes to elified.
         attrNames.forEach(function(attrName) {

@@ -9,6 +9,7 @@
 
 nutmeg().global();
 window.onload = function() {
+    console.log(Date.now());
     body().style(style.body)(
         div().style(style.center)(
             h1().style(style.inline, style.name)(
@@ -29,6 +30,7 @@ window.onload = function() {
             )
         )
     )
+    console.log(Date.now());
 }
 
 var style = mergeStyle({

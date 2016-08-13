@@ -9,16 +9,26 @@
 
 nutmeg().global();
 window.onload = function() {
-var curr = 1;
-var prev = 0;
-body().style(style.base)(
-    Array(750).fill(0).map(function (fib, ind) {
-        var oldc = curr, oldp = prev;
-        curr += prev;
-        prev = oldc;
-        return div(oldp).style(style.fib);
-    })
-);
+var timeTaken = 0;
+var timesToLoad = 100;
+for (var i = 0; i < timesToLoad; i++) {
+    var startTime = Date.now();
+    var curr = 1;
+    var prev = 0;
+    body().style(style.base)(
+        Array(1500).fill(0).map(function (fib, ind) {
+            var oldc = curr, oldp = prev;
+            curr += prev;
+            prev = oldc;
+            return div(oldp).style(style.fib);
+        })
+    );
+    timeTaken += Date.now() - startTime;
+    if (i < timesToLoad - 1) 
+        body().clear();
+}
+console.log("Page loaded", timesToLoad, "times.");
+console.log("Average load time:", timeTaken / timesToLoad, "ms.");
 };
 
 var style = mergeStyle({
