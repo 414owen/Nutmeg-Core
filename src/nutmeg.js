@@ -28,7 +28,7 @@ function nutmeg() {
                 setStyles(elem, styles[i]);
             }
         }
-    };
+    }
 
     function appendChildren(el, child) {
         switch(typeof(child)) {
@@ -46,13 +46,14 @@ function nutmeg() {
             default:
                 appendChildren(el, child.toString())
         }
-    };
+    }
 
     function setClasses(el, classes) {
         classes.forEach(function(classname) {
             el.classList.add(classname);
         });
-    };
+    }
+
     nutmeg.elify = function(elem) {
         var elified = function() {
             elified.append(arguments);
@@ -249,13 +250,13 @@ function nutmeg() {
             styleGroups[key] = styles;
         }
         return styleGroups;
-    }
+    };
 
     nutmeg.global = function() {
         Object.keys(nutmeg).forEach(function(key) {
             W[key] = nutmeg[key];
         });
-    }
+    };
 
     return nutmeg;
 }
