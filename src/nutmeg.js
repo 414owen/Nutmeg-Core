@@ -19,18 +19,21 @@ function nutmeg() {
         nutmeg = {};
 
     function setStyles(el, styles) {
-        if (styles.length !== undefined) {
-            for (var i = 0; i < styles.length; i++) {
-                setStyles(styles[i]);
+        if (styles.length === undefined) {
+            for (var key in styles) {
+                switch(key) {
+                    case 'hover':
+                    focus
+                }
             }
         } else {
-            for (var key in styles) {
-                el.style[key] = styles[key]
+            for (var i = 0; i < styles.length; i++) {
+                setStyles(styles[i]);
             }
         }
     };
 
-    function appendChildren(el, child) {
+    function appendChildren(el, styles, obj) {
         switch(typeof(child)) {
             case 'function':
                 el.appendChild(child.val);
@@ -53,10 +56,6 @@ function nutmeg() {
             el.classList.add(classname);
         });
     };
-
-    .style(..({color: 'blue'} | [{color: 'blue'}])
-
-    var styles = [];
     nutmeg.elify = function(elem) {
         var elified = function() {
             elified.append(arguments);
@@ -72,6 +71,8 @@ function nutmeg() {
             return elified;
         };
         elified.style = function(styles) {
+            var styles = [];
+            elified.styles = styles;
             setStyles(elified, arg);
             return elified;
         };
