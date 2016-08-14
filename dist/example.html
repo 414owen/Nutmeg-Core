@@ -24,9 +24,7 @@ window.onload = function() {
                         ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
                         .map(function(button) {
                             return i().classes(['fa', 'fa-' + button[0]])
-                                    .link(button[1]).onmouseover(
-                                        'test', function eventTest() {console.log(button[0]);}
-                                    );
+                                    .link(button[1]).onmouseover(function eventTest() {console.log(button[0]);});
                         })
                     ).style(style.icons)
                 )

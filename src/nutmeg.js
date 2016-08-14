@@ -61,6 +61,7 @@ function nutmeg() {
         };
         elified.link = function(url) {
             elified.style([{cursor: 'pointer'}]);
+            elified.onclick(function() {window.location = url;});
             return elified;
         };
         elified.style = function(styles) {
@@ -107,6 +108,7 @@ function nutmeg() {
         });
 
         var events = {};
+        var privateID = 0;
         eventNames.forEach(function(eventName) {
             var key = eventName + 'funcs';
             events[key] = {};
@@ -114,8 +116,12 @@ function nutmeg() {
                 delete events[key][funcID];
                 return elified;
             };
-            elified[eventName] = function(funcID, callback) {
-                events[key][funcID] = (callback);
+            elified[eventName] = function(func, funcID) {
+                var id = funcID;
+                if (funcID === undefined) {
+                    id = '_priv_' + privateID++;
+                }
+                events[key][id] = func;
                 return elified;
             };
             elem[eventName] = function() {
