@@ -19,11 +19,15 @@ function nutmeg() {
         nutmeg = {};
 
     function setStyles(el, styles) {
-        styles.forEach(function(style) {
-            for (var key in style) {
-                el.style[key] = style[key];
+        if (styles.length !== undefined) {
+            for (var i = 0; i < styles.length; i++) {
+                setStyles(styles[i]);
             }
-        });
+        } else {
+            for (var key in styles) {
+                el.style[key] = styles[key]
+            }
+        }
     };
 
     function appendChildren(el, child) {
@@ -42,7 +46,7 @@ function nutmeg() {
             default:
                 appendChildren(el, child.toString())
         }
-    }
+    };
 
     function setClasses(el, classes) {
         classes.forEach(function(classname) {
@@ -50,6 +54,9 @@ function nutmeg() {
         });
     };
 
+    .style(..({color: 'blue'} | [{color: 'blue'}])
+
+    var styles = [];
     nutmeg.elify = function(elem) {
         var elified = function() {
             elified.append(arguments);
@@ -65,9 +72,7 @@ function nutmeg() {
             return elified;
         };
         elified.style = function(styles) {
-            // To array, to use forEach.
-            var args = Array.prototype.slice.call(arguments);
-            args.forEach(function(arg) {setStyles(elem, arg)});
+            setStyles(elified, arg);
             return elified;
         };
         elified.classes = function(classes) {
