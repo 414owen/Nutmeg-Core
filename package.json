@@ -4,6 +4,7 @@
   "description": "A tiny client-side website generator.",
   "main": "nutmeg.js",
   "scripts": {
+    "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
