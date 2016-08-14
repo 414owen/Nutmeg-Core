@@ -232,7 +232,7 @@ function nutmeg() {
     });
 
     nutmeg.mergeStyle = function(root) {
-        const styleGroups = {};
+        var styleGroups = {};
         for (var key in root) {
             var styles = [];
             /**
@@ -244,6 +244,9 @@ function nutmeg() {
                     style.depends.forEach(function(dep) {
                         merge(root[dep]);
                     });
+                }
+                if (style.hover !== undefined) {
+
                 }
                 styles.push(style);
             }
