@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var DEST = 'dist/';
+var DEST = 'dist';
 
 gulp.task('doc', function (cb) {
 	var jsdoc = require('gulp-jsdoc3');
@@ -13,7 +13,7 @@ gulp.task('closure-compile', function () {
     return gulp.src('src/*.js')
 	    .pipe(closureCompiler({
 	        compilerPath: 'node_modules/google-closure-compiler/compiler.jar',
-	        fileName: 'nutmeg.js',
+	        fileName: 'src/nutmeg.js',
 	        compilerFlags: {
 		        closure_entry_point: 'src/nutmeg.js',
 		        compilation_level: 'SIMPLE_OPTIMIZATIONS',
