@@ -1,0 +1,16 @@
+(function(){/*
+
+ This is Nutmeg. a tiny client-side website generator.
+ Homepage: https://github.com/414owen/Nutmeg
+
+
+ Copyright (c) 2016 Owen Shepherd
+ This software is open-source under the MIT license.
+ The full license can be viewed here: https://opensource.org/licenses/MIT
+
+*/
+function nutmeg(){function k(b,a){if(void 0===a.length)for(var c in a)b.style[c]=a[c];else for(c=0;c<a.length;c++)k(a[c])}function g(b,a){switch(typeof a){case "function":b.appendChild(a.val);break;case "string":var c=h.createTextNode(a);b.appendChild(c);break;case "object":for(c=0;c<a.length;c++)g(b,a[c]);break;default:g(b,a.toString())}}function l(b,a){a.forEach(function(a){b.classList.add(a)})}var h=document,m=window,e={elify:function(b){var a=function(){a.append(arguments);return a};a.append=
+function(d){g(b,d);return a};a.function______$link=function(b){a.style([{cursor:"pointer"}]);a.onclick(function(){window.location=b});return a};a.style=function(d){k(b,d);return a};a.classes=function(d){l(b,d);return a};a.attr=function(d,c){b.setAttribute(d,c);return a};a.prop=function(c,f){b[c]=f;return a};a.function______$clear=function(){for(;b.firstChild;)b.removeChild(b.firstChild);return a};n.forEach(function(c){a[c]=function(f){b.setAttribute(c,f);return a}});p.forEach(function(c){a[c]=function(f){b[c]=
+f;return a}});var c={},e=0;q.forEach(function(d){var f=d+"funcs";c[f]={};a["rem"+d]=function(b){delete c[f][b];return a};a[d]=function(b,d){var g=d;void 0===d&&(g="_priv_"+e++);c[f][g]=b;return a};b[d]=function(){var a=c[f],b;for(b in a)a[b]()}});a.val=b;return a}},n="alt contenteditable href id readonly src title type".split(" "),p="checked disabled height selected value width".split(" "),q="onblur onchange onclick ondblclick onfocus onkeydown onkeyup onmousedown onmouseout onmouseover onmouseup".split(" ");
+e.body=function(){return e.elify(h.body).append(arguments)};"a audio b br button canvas datalist div em footer form h1 h2 h3 h4 h5 h6 header hr i input item label li menu menuitem meter nav noscript ol p pre progress script select span strong table tbody td textarea tfoot th thead tr ul video".split(" ").forEach(function(b){e[b]=function(){return e.elify(h.createElement(b)).append(arguments)}});e.mergeStyle=function(b){var a={},c;for(c in b){var e=function(a){void 0!==a.depends&&a.depends.forEach(function(a){e(b[a])});
+d.push(a)},d=[];e(b[c]);a[c]=d}return a};e.global=function(){Object.keys(e).forEach(function(b){m[b]=e[b]})};return e};}).call(window);

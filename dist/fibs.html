@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nutmeg</title>
+<script async src="https://use.fontawesome.com/2926a1b865.js"></script>
+<link async href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet" type="text/css">
+<script src="Nutmeg-U.js"></script>
+<script>
+
+nutmeg().global();
+window.onload = function() {
+    var curr = 1;
+    var prev = 0;
+    body().style(style.base)(
+        Array(1500).fill(0).map(function (fib) {
+            var oldc = curr, oldp = prev;
+            curr += prev;
+            prev = oldc;
+            return div(oldp).style(style.fib);
+        })
+    );
+};
+
+var style = mergeStyle({
+    base: {
+        backgroundColor: '#111'
+    },
+    spaced: {
+        margin: '0.5rem',
+        padding: '0.5rem'
+    },
+    bordered: {
+        borderRadius: '8px'
+    },
+    fib: {
+        depends: ['spaced', 'bordered'],
+        display: 'inline-block',
+        backgroundColor: '#333',
+        color: '#eee'
+    }
+});
+
+</script>
+<link rel="icon" type="image/png" sizes="32x32" href="http://owenowen.netsoc.ie/res/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="http://owenowen.netsoc.ie/res/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://owenowen.netsoc.ie/res/favicon-16x16.png">
+</head>
+
+<body>
+</body>
+
+</html>
