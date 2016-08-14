@@ -9,12 +9,10 @@
 
 nutmeg().global();
 window.onload = function() {
-    console.log(Date.now());
-
     body().style(style.body)(
         div().style(style.center)(
-            h1().style(style.inline, style.name)(
-                'This Is Nutmeg',
+            h1(
+                div('This Is Nutmeg').style(style.name),
                 div().style(style.hline),
                 div().style(style.centerHor)(
                     div(
@@ -30,9 +28,8 @@ window.onload = function() {
                 )
             )
         )
-    )
-    console.log(Date.now());
-}
+    );
+};
 
 var style = mergeStyle({
     base: {
@@ -56,9 +53,7 @@ var style = mergeStyle({
         position: 'absolute'
     },
     fillPage: {
-        depends: ['base', 'abs'],
-        width: '100vw',
-        height: '100vh'
+        depends: ['base', 'abs', 'fill']
     },
     body: {
         depends: ['fillPage'],
@@ -78,7 +73,7 @@ var style = mergeStyle({
     },
     center: {
         depends: ['fill', 'centerHor'],
-        alignItems: 'center',
+        alignItems: 'center'
     },
     icons: {
         depends: ['lower', 'disperse'],

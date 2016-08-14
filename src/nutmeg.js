@@ -58,7 +58,6 @@ function nutmeg() {
     nutmeg.elify = function(elem) {
         /**
          * Elified - A Nutmeg Element
-         * @return {function} 
          */
         var elified = function() {
             elified.append(arguments);
