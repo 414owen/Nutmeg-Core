@@ -18,14 +18,15 @@ function nutmeg() {
         W = window,
         nutmeg = {};
 
-    function setStyles(elem, styles) {
+    function setStyles(elified, styles, specials) {
         if (styles.length === undefined) {
+            var elstyle = elified.val.style;
             for (var key in styles) {
-                elem.style[key] = styles[key];
+                elstyle[key] = styles[key];
             }
         } else {
             for (var i = 0; i < styles.length; i++) {
-                setStyles(elem, styles[i]);
+                setStyles(elified, styles[i]);
             }
         }
     }
@@ -55,6 +56,10 @@ function nutmeg() {
     }
 
     nutmeg.elify = function(elem) {
+        /**
+         * Elified - A Nutmeg Element
+         * @return {function} 
+         */
         var elified = function() {
             elified.append(arguments);
             return elified;
@@ -69,7 +74,7 @@ function nutmeg() {
             return elified;
         };
         elified.style = function(styles) {
-            setStyles(elem, styles);
+            setStyles(elified, styles);
             return elified;
         };
         elified.classes = function(classes) {
@@ -227,9 +232,6 @@ function nutmeg() {
         }
     });
 
-    /**
-     * @param  {Object<string, Object>} root
-     */
     nutmeg.mergeStyle = function(root) {
         const styleGroups = {};
         for (var key in root) {
