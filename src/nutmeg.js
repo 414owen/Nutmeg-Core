@@ -219,10 +219,17 @@ function nutmeg() {
         }
     });
 
+    /**
+     * @param  {Object} root
+     */
     nutmeg.mergeStyle = function(root) {
         const styleGroups = {};
         for (var key in root) {
             var styles = [];
+            /**
+             * @param {Object} style
+             * @type  {Array.string} style.depends
+             */
             function merge(style) {
                 if (style.depends !== undefined) {
                     style.depends.forEach(function(dep) {
