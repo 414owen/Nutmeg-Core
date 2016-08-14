@@ -16,7 +16,7 @@ gulp.task('closure-compiler', function () {
 	        compilerPath: 'node_modules/google-closure-compiler/compiler.jar',
 	        compilerFlags: {
 		        compilation_level: 'SIMPLE_OPTIMIZATIONS',
-		        create_source_map: 'dist/Nutmeg-C.js.map'
+		        create_source_map: 'dist/Nutmeg-C.js.map',
 		        define: [],
 		        externs: [],
 		        only_closure_dependencies: true,
