@@ -31,7 +31,9 @@ gulp.task('closure-compiler', function () {
 gulp.task('uglify-compiler', function() {
 	var uglify = require('gulp-uglify');
 	gulp.src('src/*.js')
-		.pipe(uglify({output: {comments: /^!|@preserve|@license|@cc_on/i}}))
+		.pipe(uglify({
+       preserveComments:'some'
+     }))
 		.pipe(rename('Nutmeg-U.js'))
 		.pipe(gulp.dest(DEST));
 })
