@@ -10,6 +10,7 @@
 nutmeg().global();
 window.onload = function() {
     console.log(Date.now());
+
     body().style(style.body)(
         div().style(style.center)(
             h1().style(style.inline, style.name)(
@@ -17,13 +18,15 @@ window.onload = function() {
                 div().style(style.hline),
                 div().style(style.centerHor)(
                     div(
-                       [['github', 'https://github.com/414owen'],
-                        ['bitbucket', 'https://bitbucket.org/shephero/'],
+                       [['github', 'https://github.com/414owen/Nutmeg'],
+                        ['bitbucket', 'https://bitbucket.org/shephero/nutmeg'],
                         ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
                         ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
                         .map(function(button) {
                             return i().classes(['fa', 'fa-' + button[0]])
-                                    .link(button[1]);
+                                    .link(button[1]).onmouseover(
+                                        'test', function eventTest() {console.log(button[0]);}
+                                    );
                         })
                     ).style(style.icons)
                 )

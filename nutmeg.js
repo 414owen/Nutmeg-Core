@@ -50,18 +50,6 @@ function nutmeg() {
         });
     };
 
-    function addClickEvent(el, event) {
-        var curr = el.onclick;
-        if (curr === null)
-            el.onclick = event;
-        else {
-            el.onclick = function() {
-                curr();
-                event();
-            };
-        }
-    };
-
     nutmeg.elify = function(elem) {
         var elified = function() {
             elified.append(arguments);
@@ -69,60 +57,75 @@ function nutmeg() {
         }
         elified.append = function(children) {
             appendChildren(elem, children);
-        };
-        elified.onclick = function(todo) {
-            addClickEvent(elem, todo);
+            return elified;
         };
         elified.link = function(url) {
-            addClickEvent(elem, function() {W.location = url;});
             elified.style([{cursor: 'pointer'}]);
+            return elified;
         };
         elified.style = function(styles) {
             // To array, to use forEach.
             var args = Array.prototype.slice.call(arguments);
             args.forEach(function(arg) {setStyles(elem, arg)});
+            return elified;
         };
         elified.classes = function(classes) {
             setClasses(elem, classes);
+            return elified;
         };
         /** Change an attribute on the element. */
         elified.attr = function(key, value) {
             elem.setAttribute(key, value);
+            return elified;
         };
         /** Change a property on the element. */
         elified.prop = function(key, value) {
             elem[key] = value;
+            return elified;
         };
         /** Remove all children of the element. */
         elified.clear = function() {
             while(elem.firstChild) {
                 elem.removeChild(elem.firstChild);
             }
+            return elified;
         };
 
         // Add attributes to elified.
         attrNames.forEach(function(attrName) {
             elified[attrName] = function(value) {
                 elem.setAttribute(attrName, value);
-            }
+                return elified;
+            };
         });
         // Add properties to elified.
         propNames.forEach(function(propName) {
             elified[propName] = function(value) {
                 elem[propName] = value;
-            }
+                return elified;
+            };
         });
 
-        for (var funkey in elified) {
-            var scope = function() {
-                var func = elified[funkey];
-                elified[funkey] = function() {
-                    func.apply(null, arguments);
-                    return elified;
-                };
+        var events = {};
+        eventNames.forEach(function(eventName) {
+            var key = eventName + 'funcs';
+            events[key] = {};
+            elified['rem' + eventName] = function(funcID) {
+                delete events[key][funcID];
+                return elified;
             };
-            scope();
-        }
+            elified[eventName] = function(funcID, callback) {
+                events[key][funcID] = (callback);
+                return elified;
+            };
+            elem[eventName] = function() {
+                var callbacks = events[key];
+                for (var callback in callbacks) {
+                    callbacks[callback]();
+                }
+            };
+        });
+
         elified.val = elem;
         return elified;
     };
@@ -194,7 +197,7 @@ function nutmeg() {
         'value',
         'width'
     ];
-    var functions = [
+    var eventNames = [
         'onblur',
         'onchange',
         'onclick',
