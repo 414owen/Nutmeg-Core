@@ -220,7 +220,7 @@ function nutmeg() {
     });
 
     /**
-     * @param  {Object} root
+     * @param  {Object<string, Object>} root
      */
     nutmeg.mergeStyle = function(root) {
         const styleGroups = {};
@@ -228,7 +228,7 @@ function nutmeg() {
             var styles = [];
             /**
              * @param {Object} style
-             * @type  {Array.string} style.depends
+             * @type  {(Array.string|undefined)} style.depends
              */
             function merge(style) {
                 if (style.depends !== undefined) {

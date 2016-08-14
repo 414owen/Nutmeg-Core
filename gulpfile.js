@@ -1,32 +1,40 @@
 var gulp = require('gulp');
 var DEST = 'dist';
+var rename = require("gulp-rename");
 
 gulp.task('doc', function (cb) {
 	var jsdoc = require('gulp-jsdoc3');
 	var config = require('./jsdoc.json');
-    gulp.src(['README.md', './src/*.js'], {read: false})
+    gulp.src(['README.md', 'src/*.js'], {read: false})
         .pipe(jsdoc(config, cb));
 });
 
-gulp.task('closure-compile', function () {
+gulp.task('closure-compiler', function () {
 	var closureCompiler = require('gulp-closure-compiler');
     return gulp.src('src/*.js')
 	    .pipe(closureCompiler({
 	        compilerPath: 'node_modules/google-closure-compiler/compiler.jar',
-	        fileName: 'src/nutmeg.js',
 	        compilerFlags: {
 		        closure_entry_point: 'src/nutmeg.js',
 		        compilation_level: 'SIMPLE_OPTIMIZATIONS',
 		        define: [],
 		        externs: [],
 		        only_closure_dependencies: true,
-		        // .call is super important, otherwise Closure Library will not work in strict mode. 
-		        output_wrapper: '(function(){%output%}).call(window);',
+		        output_wrapper: '(function(){%output%});',
 		        warning_level: 'VERBOSE'
 		    }
 	    }))
+	    .pipe(rename('Nutmeg-C.js'))
 	    .pipe(gulp.dest(DEST));
 });
 
-gulp.task('default', ['closure-compile']);
-gulp.task('all', ['doc', 'closure-compile'])
+gulp.task('uglify-compiler', function() {
+	var uglify = require('gulp-uglify');
+	gulp.src('src/*.js')
+		.pipe(uglify())
+		.pipe(rename('Nutmeg-U.js'))
+		.pipe(gulp.dest(DEST));
+})
+
+gulp.task('default', ['closure-compiler', 'uglify-compiler']);
+gulp.task('all', ['doc', 'default'])
