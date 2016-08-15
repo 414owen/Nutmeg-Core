@@ -222,6 +222,11 @@ function nutmeg() {
         'onmouseover',
         'onmouseup'
     ];
+    var pseudoEls = [
+        ['hover', 'onmouseover', 'onmouseout'],
+        ['focus', 'onfocus', 'onblur'],
+        ['active', 'onactivate', 'ondeactivate']
+    ];
 
     nutmeg.body = function() {return nutmeg.elify(D.body).append(arguments);};
 
@@ -231,6 +236,17 @@ function nutmeg() {
         }
     });
 
+
+    // TODO, make stylegroups have this structure:
+    // {
+    //     bordered: {
+    //         base: [{color: 'blue'}],
+    //         active: [{color: 'yellow'}],
+    //         hover: [{color: 'green'}]
+    //     }
+    // }
+    // 
+    // Then, make the styles apply like that, under elified.style.
     nutmeg.mergeStyle = function(root) {
         var styleGroups = {};
         for (var key in root) {
@@ -245,9 +261,12 @@ function nutmeg() {
                         merge(root[dep]);
                     });
                 }
-                if (style.hover !== undefined) {
-
-                }
+                pseudoEls.forEach(function(pseudoEl) {
+                    var name = pseudoEl[0];
+                    if(style[name] !== undefined) {
+                        pseudos[name].push(style[name]);
+                    }
+                });
                 styles.push(style);
             }
             merge(root[key])
