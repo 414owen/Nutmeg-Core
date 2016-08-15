@@ -18,7 +18,7 @@ function nutmeg() {
         W = window,
         nutmeg = {};
 
-    function setStyles(elified, styles, specials) {
+    function setStyles(elified, styles) {
         if (styles.length === undefined) {
             var elstyle = elified.val.style;
             for (var key in styles) {
@@ -29,6 +29,33 @@ function nutmeg() {
                 setStyles(elified, styles[i]);
             }
         }
+    }
+
+    function processStyles(elified, styles) {
+        var toApply;
+        if (styles.base === undefined) {
+            toApply = styles;
+        } else {
+            toApply = styles.base;
+            pseudoEls.forEach(function(pseudo) {
+                var name = pseudo[0];
+                if (styles[name].length !== 0) {
+                    elified.val[pseudo[1]] = function() {
+                        setStyles(elified, styles[name]);
+                    }
+                    elified.val[pseudo[2]] = function() {
+                        var toSet = elified.val.style;
+                        styles[name].forEach(function(style) {
+                            for (var key in style) {
+                                toSet[key] = '';
+                            }
+                            setStyles(elified, toApply);
+                        });
+                    }
+                }
+            });
+        }
+        setStyles(elified, toApply);
     }
 
     function appendChildren(el, child) {
@@ -68,12 +95,12 @@ function nutmeg() {
             return elified;
         };
         elified.link = function(url) {
-            elified.style([{cursor: 'pointer'}]);
+            elified.style({cursor: 'pointer'});
             elified.onclick(function() {window.location = url;});
             return elified;
         };
         elified.style = function(styles) {
-            setStyles(elified, styles);
+            processStyles(elified, styles);
             return elified;
         };
         elified.classes = function(classes) {
@@ -210,10 +237,12 @@ function nutmeg() {
         'width'
     ];
     var eventNames = [
+        'onactivate', 
         'onblur',
         'onchange',
         'onclick',
         'ondblclick',
+        'ondeactivate',
         'onfocus',
         'onkeydown',
         'onkeyup',
@@ -250,7 +279,11 @@ function nutmeg() {
     nutmeg.mergeStyle = function(root) {
         var styleGroups = {};
         for (var key in root) {
-            var styles = [];
+            var styles = {base: []};
+            pseudoEls.forEach(function(el) {
+                styles[el[0]] = [];
+            });
+
             /**
              * @param {Object} style
              * @type  {(Array.string|undefined)} style.depends
@@ -264,10 +297,10 @@ function nutmeg() {
                 pseudoEls.forEach(function(pseudoEl) {
                     var name = pseudoEl[0];
                     if(style[name] !== undefined) {
-                        pseudos[name].push(style[name]);
+                        styles[name].push(style[name]);
                     }
                 });
-                styles.push(style);
+                styles.base.push(style);
             }
             merge(root[key])
             styleGroups[key] = styles;

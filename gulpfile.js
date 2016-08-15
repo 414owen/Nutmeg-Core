@@ -39,5 +39,5 @@ gulp.task('uglify-compiler', function() {
 		.pipe(gulp.dest(DEST));
 })
 
-gulp.task('default', ['closure-compiler', 'uglify-compiler']);
+gulp.task('default', ['closure-compiler', 'uglify-compiler', 'copy']);
 gulp.task('all', ['doc', 'default'])
