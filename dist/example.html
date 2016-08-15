@@ -22,7 +22,7 @@ window.onload = function() {
                         ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
                         .map(function(button) {
                             return i().classes(['fa', 'fa-' + button[0]])
-                                    .link(button[1]).style({width: '2rem'})
+                                    .link(button[1]).style(style.icon)
                                     .onmouseover(function eventTest() {console.log(button[0]);});
                         })
                     ).style(style.icons)
@@ -65,6 +65,12 @@ var style = mergeStyle({
     center: {
         depends: ['fill', 'centerHor'],
         alignItems: 'center'
+    },
+    icon: {
+        width: '2rem',
+        hover: {
+            color: 'green'
+        }
     },
     icons: {
         depends: ['lower', 'disperse'],
