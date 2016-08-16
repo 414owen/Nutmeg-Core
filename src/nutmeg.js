@@ -152,11 +152,14 @@ function nutmeg() {
                 return elified;
             };
             elified[eventName] = function(func, funcID) {
-                var id = funcID;
-                if (funcID === undefined) {
-                    id = '_priv_' + privateID++;
+                if (func == null) {
+                    delete events[key][funcID];
+                } else {
+                    if (funcID === undefined) {
+                        funcID = '_priv_' + privateID++;
+                    }
+                    events[key][funcID] = func;
                 }
-                events[key][id] = func;
                 return elified;
             };
             elem[eventName] = function() {
