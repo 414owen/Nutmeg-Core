@@ -18,6 +18,21 @@ function nutmeg() {
         W = window,
         nutmeg = {};
 
+    function addPseudoElEvents(elified, styles, pseudo) {
+        elified[pseudo[1]](function() {
+            processStyles(elified, styles[pseudo[0]]);
+        });
+        elified[pseudo[2]](function() {
+            var toSet = elified.val.style;
+            styles[pseudo[0]].forEach(function(style) {
+                for (var key in style) {
+                    toSet[key] = '';
+                }
+                processStyles(elified, toApply);
+            });
+        });
+    }
+
     function processStyles(elified, styles) {
         if (styles.length === undefined) {
             // If from mergeStyles
@@ -26,23 +41,12 @@ function nutmeg() {
                 processStyles(elified, styles.base);
                 // Add events for supplied pseudo-elements
                 pseudoEls.forEach(function(pseudo) {
-                    var name = pseudo[0];
-                    if (styles[name].length !== 0) {
-                        elified[pseudo[1]](function() {
-                            processStyles(elified, styles[name]);
-                        });
-                        elified[pseudo[2]](function() {
-                            var toSet = elified.val.style;
-                            styles[name].forEach(function(style) {
-                                for (var key in style) {
-                                    toSet[key] = '';
-                                }
-                                processStyles(elified, toApply);
-                            });
-                        });
+                    if (styles[pseudo[0]].length !== 0) {
+                        addPseudoElEvents(elified, styles, pseudo);
                     }
                 });
             } else {
+                // Apply style
                 var elstyle = elified.val.style;
                 for (var key in styles) {
                     elstyle[key] = styles[key];
