@@ -267,17 +267,6 @@ function nutmeg() {
         }
     });
 
-
-    // TODO, make stylegroups have this structure:
-    // {
-    //     bordered: {
-    //         base: [{color: 'blue'}],
-    //         active: [{color: 'yellow'}],
-    //         hover: [{color: 'green'}]
-    //     }
-    // }
-    // 
-    // Then, make the styles apply like that, under elified.style.
     nutmeg.mergeStyle = function(root) {
         var styleGroups = {};
         for (var key in root) {
@@ -285,11 +274,6 @@ function nutmeg() {
             pseudoEls.forEach(function(el) {
                 styles[el[0]] = [];
             });
-
-            /**
-             * @param {Object} style
-             * @type  {(Array.string|undefined)} style.depends
-             */
             function merge(style) {
                 if (style.depends !== undefined) {
                     style.depends.forEach(function(dep) {
