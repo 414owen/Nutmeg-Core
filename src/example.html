@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nutmeg</title>
+<script async src="https://use.fontawesome.com/2926a1b865.js"></script>
+<link async href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet" type="text/css">
+<script src="nutmeg.js"></script>
+<script>
+
+nutmeg().global();
+window.onload = function() {
+    body().style(style.body)(
+        div().style(style.center)(
+            div(
+                div('This Is Nutmeg').style({fontSize: '3rem'}),
+                div().style(style.hline),
+                div().style(style.centerHor)(
+                    div(
+                       [['github', 'https://github.com/414owen/Nutmeg'],
+                        ['bitbucket', 'https://bitbucket.org/shephero/nutmeg'],
+                        ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
+                        ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
+                        .map(function(button) {
+                            return i().classes(['fa', 'fa-' + button[0]])
+                                    .link(button[1]).style(style.icon)
+                                    .onmouseover(function eventTest() {console.log(button[0]);});
+                        })
+                    ).style(style.icons)
+                )
+            )
+        )
+    );
+};
+
+var style = mergeStyle({
+    transition: {
+        transition: 'all 0.7s ease'
+    },
+    base: {
+        depends: ['transition'],
+        border: '0',
+        margin: '0',
+        padding: '0',
+        fontFamily: 'Raleway',
+        fontWeight: '300',
+        lineHeight: '1.15',
+        display: 'block',
+    },
+    icon: {
+        depends: ['transition'],
+        width: '2rem',
+        hover: {
+            color: 'green'
+        }
+    },
+    body: {
+        depends: ['base'],
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#f5f5f5'
+    },
+    fill: {
+        width: '100%',
+        height: '100%'
+    },
+    flex: {
+        display: 'flex',
+    },
+    centerHor: {
+        depends: ['flex'],
+        justifyContent: 'center',
+        textAlign: 'center'
+    },
+    center: {
+        depends: ['fill', 'centerHor'],
+        alignItems: 'center'
+    },
+    icons: {
+        depends: ['lower', 'disperse'],
+        fontSize: '2rem',
+        width: '80%'
+    },
+    disperse: {
+        depends: ['fill', 'centerHor'],
+        justifyContent: 'space-around'
+    },
+    inline: {
+        depends: ['base'],
+        display: 'inline-block'
+    },
+    hline: {
+        depends: ['lower'],
+        borderTop: '1px solid'
+    },
+    lower: {
+        marginTop: '0.5rem'
+    }
+});
+</script>
+</head>
+
+<body>
+</body>
+
+</html>

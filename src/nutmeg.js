@@ -18,44 +18,42 @@ function nutmeg() {
         W = window,
         nutmeg = {};
 
-    function setStyles(elified, styles) {
-        if (styles.length === undefined) {
-            var elstyle = elified.val.style;
-            for (var key in styles) {
-                elstyle[key] = styles[key];
-            }
-        } else {
-            for (var i = 0; i < styles.length; i++) {
-                setStyles(elified, styles[i]);
-            }
-        }
-    }
-
     function processStyles(elified, styles) {
-        var toApply;
-        if (styles.base === undefined) {
-            toApply = styles;
-        } else {
-            toApply = styles.base;
-            pseudoEls.forEach(function(pseudo) {
-                var name = pseudo[0];
-                if (styles[name].length !== 0) {
-                    elified.val[pseudo[1]] = function() {
-                        setStyles(elified, styles[name]);
-                    }
-                    elified.val[pseudo[2]] = function() {
-                        var toSet = elified.val.style;
-                        styles[name].forEach(function(style) {
-                            for (var key in style) {
-                                toSet[key] = '';
-                            }
-                            setStyles(elified, toApply);
+        if (styles.length === undefined) {
+            // If from mergeStyles
+            if (styles.base !== undefined) {
+                // Apply base styles
+                processStyles(elified, styles.base);
+                // Add events for supplied pseudo-elements
+                pseudoEls.forEach(function(pseudo) {
+                    var name = pseudo[0];
+                    if (styles[name].length !== 0) {
+                        elified[pseudo[1]](function() {
+                            processStyles(elified, styles[name]);
+                        });
+                        elified[pseudo[2]](function() {
+                            var toSet = elified.val.style;
+                            styles[name].forEach(function(style) {
+                                for (var key in style) {
+                                    toSet[key] = '';
+                                }
+                                processStyles(elified, toApply);
+                            });
                         });
                     }
+                });
+            } else {
+                var elstyle = elified.val.style;
+                for (var key in styles) {
+                    elstyle[key] = styles[key];
                 }
-            });
+            }
+        } else {
+            // If an array, attempt to apply all elements
+            for (var i = 0; i < styles.length; i++) {
+                processStyles(elified, styles[i]);
+            }
         }
-        setStyles(elified, toApply);
     }
 
     function appendChildren(el, child) {
