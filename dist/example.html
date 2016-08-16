@@ -4,28 +4,26 @@
 <title>Nutmeg</title>
 <script async src="https://use.fontawesome.com/2926a1b865.js"></script>
 <link async href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet" type="text/css">
-<script src="Nutmeg-U.js"></script>
+<script src="nutmeg.js"></script>
 <script>
 
 nutmeg().global();
 window.onload = function() {
     body().style(style.body)(
         div().style(style.center)(
-            div(
+            div().style(style.main)(
                 div('This Is Nutmeg').style({fontSize: '3rem'}),
                 div().style(style.hline),
                 div().style(style.centerHor)(
-                    div(
-                       [['github', 'https://github.com/414owen/Nutmeg'],
-                        ['bitbucket', 'https://bitbucket.org/shephero/nutmeg'],
-                        ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
-                        ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
-                        .map(function(button) {
-                            return i().classes(['fa', 'fa-' + button[0]])
-                                    .link(button[1]).style(style.icon)
-                                    .onmouseover(function eventTest() {console.log(button[0]);});
-                        })
-                    ).style(style.icons)
+                   [['github', 'https://github.com/414owen/Nutmeg'],
+                    ['bitbucket', 'https://bitbucket.org/shephero/nutmeg'],
+                    ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
+                    ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
+                    .map(function(button, ind) {
+                        return div(i().classes(['fa', 'fa-' + button[0]])
+                                .link(button[1]).style(style.icon)
+                                .onmouseover(function() {console.log(button[0]);}));
+                    })
                 )
             )
         )
@@ -34,10 +32,9 @@ window.onload = function() {
 
 var style = mergeStyle({
     transition: {
-        transition: 'all 0.7s ease'
+        transition: 'all 0.5s ease'
     },
     base: {
-        depends: ['transition'],
         border: '0',
         margin: '0',
         padding: '0',
@@ -48,10 +45,19 @@ var style = mergeStyle({
     },
     icon: {
         depends: ['transition'],
-        width: '2rem',
+        fontSize: '2rem',
+        width: '4rem',
+        height: '3.5rem',
+        lineHeight: '3.5rem',
         hover: {
-            color: 'green'
+            fontSize: '3rem',
+            color: '#f5f5f5',
+            backgroundColor: 'black'
         }
+    },
+    iconholder: {
+        depends: ['centerHor'],
+        border: '1px solid black'
     },
     body: {
         depends: ['base'],
@@ -72,14 +78,12 @@ var style = mergeStyle({
         justifyContent: 'center',
         textAlign: 'center'
     },
+    main: {
+        height: '7rem',
+    },
     center: {
         depends: ['fill', 'centerHor'],
         alignItems: 'center'
-    },
-    icons: {
-        depends: ['lower', 'disperse'],
-        fontSize: '2rem',
-        width: '80%'
     },
     disperse: {
         depends: ['fill', 'centerHor'],

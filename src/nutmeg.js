@@ -28,7 +28,7 @@ function nutmeg() {
                 for (var key in style) {
                     toSet[key] = '';
                 }
-                processStyles(elified, toApply);
+                processStyles(elified, styles.base);
             });
         });
     }
