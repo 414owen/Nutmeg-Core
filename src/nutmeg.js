@@ -221,7 +221,8 @@ function nutmeg() {
         'thead',
         'tr',
         'ul',
-        'video'
+        'video',
+        'canvas'
     ];
     var attrNames = [
         'alt',
@@ -231,7 +232,8 @@ function nutmeg() {
         'readonly',
         'src',
         'title',
-        'type'
+        'type',
+	'placeholder'
     ];
     var propNames = [
         'checked',
