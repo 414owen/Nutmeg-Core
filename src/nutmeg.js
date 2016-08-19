@@ -13,12 +13,6 @@
   *
   */
  
-// Changelog:
-// Added dependencies for pseudo-elements
-// Fixed multiple-argument styles
-// Removed requirement for 'base' to be defined for pseudo-element application
-// Added elified as parameter to elified events
-
 function nutmeg() {
     var D = document,
         W = window,
