@@ -12,6 +12,12 @@
   * Homepage: https://github.com/414owen/Nutmeg
   *
   */
+ 
+// Changelog:
+// Added dependencies for pseudo-elements
+// Fixed multiple-argument styles
+// Removed requirement for 'base' to be defined for pseudo-element application
+// Added elified as parameter to elified events
 
 function nutmeg() {
     var D = document,
@@ -101,8 +107,8 @@ function nutmeg() {
             elified.onclick(function() {window.location = url;});
             return elified;
         };
-        elified.style = function(styles) {
-            processStyles(elified, styles);
+        elified.style = function() {
+            processStyles(elified, arguments);
             return elified;
         };
         elified.classes = function(classes) {
@@ -147,12 +153,8 @@ function nutmeg() {
         eventNames.forEach(function(eventName) {
             var key = eventName + 'funcs';
             events[key] = {};
-            elified['rem' + eventName] = function(funcID) {
-                delete events[key][funcID];
-                return elified;
-            };
             elified[eventName] = function(func, funcID) {
-                if (func == null) {
+                if (func === null) {
                     delete events[key][funcID];
                 } else {
                     if (funcID === undefined) {
@@ -165,7 +167,7 @@ function nutmeg() {
             elem[eventName] = function() {
                 var callbacks = events[key];
                 for (var callback in callbacks) {
-                    callbacks[callback]();
+                    callbacks[callback](elified);
                 }
             };
         });
@@ -233,7 +235,7 @@ function nutmeg() {
         'src',
         'title',
         'type',
-	'placeholder'
+        'placeholder'
     ];
     var propNames = [
         'checked',
@@ -279,21 +281,26 @@ function nutmeg() {
             pseudoEls.forEach(function(el) {
                 styles[el[0]] = [];
             });
-            function merge(style) {
+            function merge(style, category) {
                 if (style.depends !== undefined) {
                     style.depends.forEach(function(dep) {
-                        merge(root[dep]);
+                        merge(root[dep], 'base');
                     });
                 }
                 pseudoEls.forEach(function(pseudoEl) {
                     var name = pseudoEl[0];
                     if(style[name] !== undefined) {
+                        if (style[name].depends !== undefined) {
+                            style[name].depends.forEach(function(dep) {
+                                merge(root[dep], name);
+                            });
+                        }
                         styles[name].push(style[name]);
                     }
                 });
-                styles.base.push(style);
+                styles[category].push(style);
             }
-            merge(root[key])
+            merge(root[key], 'base');
             styleGroups[key] = styles;
         }
         return styleGroups;
