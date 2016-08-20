@@ -158,10 +158,10 @@ function nutmeg() {
                 }
                 return elified;
             };
-            elem[eventName] = function() {
+            elem[eventName] = function(e) {
                 var callbacks = events[key];
                 for (var callback in callbacks) {
-                    callbacks[callback](elified);
+                    callbacks[callback](e, elified);
                 }
             };
         });
