@@ -79,9 +79,13 @@ function nutmeg() {
     }
 
     function setClasses(el, classes) {
-        classes.forEach(function(classname) {
-            el.classList.add(classname);
-        });
+        if (typeof(classes) === 'string') {
+            el.classList.add(classes);
+        } else {
+            for (var i = 0; i < classes.length; i++) {
+                setClasses(el, classes[i]);
+            }
+        }
     }
 
     nutmeg.elify = function(elem) {
@@ -105,8 +109,8 @@ function nutmeg() {
             processStyles(elified, arguments);
             return elified;
         };
-        elified.classes = function(classes) {
-            setClasses(elem, classes);
+        elified.classes = function() {
+            setClasses(elem, arguments);
             return elified;
         };
         /** Change an attribute on the element. */
