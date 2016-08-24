@@ -32,7 +32,7 @@ A tiny client-side website generator.
 // Other examples will not include surrounding HTML
 nutmeg(
 
-// Nutmeg takes the page code as function parameter
+// Nutmeg takes the page code as a function parameter
 function() { 
 body(
     div(
