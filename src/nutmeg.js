@@ -13,7 +13,7 @@
   *
   */
  
-function nutmeg() {
+function nutmeg(func) {
     var D = document,
         W = window,
         nutmeg = {};
@@ -304,11 +304,18 @@ function nutmeg() {
         return styleGroups;
     };
 
-    nutmeg.global = function() {
+    nutmeg.bind = function(scope) {
         Object.keys(nutmeg).forEach(function(key) {
-            W[key] = nutmeg[key];
+            scope[key] = nutmeg[key];
         });
     };
+
+    nutmeg.global = function() {nutmeg.bind(W);};
+
+    if (func !== undefined) {
+        nutmeg.global();
+        window.onload = func;
+    }
 
     return nutmeg;
 }
