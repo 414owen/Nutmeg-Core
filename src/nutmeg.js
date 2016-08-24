@@ -88,88 +88,34 @@ function nutmeg(func) {
         }
     }
 
+    function allEvents() {
+        for (var key in this) {this[key]();}
+    }
+
     nutmeg.elify = function(elem) {
         var elified = function() {
             elified.append(arguments);
             return elified;
         }
-        // Add attributes to elified.
-        attrNames.forEach(function(attrName) {
-            elified[attrName] = function(value) {
-                elem.setAttribute(attrName, value);
-                return elified;
-            };
+        elified.val = elem;
+        var evs = elified.events = {};
+        events.forEach(function(ev) {
+            var name = ev[0];
+            evs[name] = {};
+            elem[name] = allEvents.bind(evs[name]);
         });
-        // Add properties to elified.
-        propNames.forEach(function(propName) {
-            elified[propName] = function(value) {
-                elem[propName] = value;
-                return elified;
-            };
-        });
-        var events = {};
-        var privateID = 0;
-        eventNames.forEach(function(eventName) {
-            var key = eventName + 'funcs';
-            events[key] = {};
-            elified[eventName] = function(func, funcID) {
-                if (func === null) {
-                    delete events[key][funcID];
-                } else {
-                    if (funcID === undefined) {
-                        funcID = '_priv_' + privateID++;
-                    }
-                    events[key][funcID] = func;
-                }
-                return elified;
-            };
-            elem[eventName] = function(e) {
-                var callbacks = events[key];
-                for (var callback in callbacks) {
-                    callbacks[callback](e, elified);
-                }
-            };
-        });
-
-        specialFuncs.forEach(function(func) {
+        elified.privateID = 0;
+        elFuncNames.forEach(function(func) {
+            // TODO see if we can not create a closure here with bind(this)
             elified[func[0]] = function() {
                 func[1].apply(elified, arguments);
                 return elified;
             }
         });
 
-        elified.val = elem;
         return elified;
     };
 
-    // 'this' is to be elified
-    var specialFuncs = [
-        ["append", function() {
-            appendChildren(this.val, arguments);
-        }],
-        ["link", function() {
-            this.style({cursor: 'pointer'});
-            this.onclick(function() {window.location = url;});
-        }],
-        ["style", function() {
-            processStyles(this, arguments);
-        }],
-        ["class", function() {
-            setClasses(this.val, arguments);
-        }],
-        ["attr", function(key, value) {
-            elem.setAttribute(key, value);
-        }],
-        ["prop", function(key, value) {
-            this.val[key] = value;
-        }],
-        ["clear", function() {
-            var elem = this.val;
-            while(elem.firstChild) {
-                elem.removeChild(elem.firstChild);
-            }
-        }]
-    ];
     var elNames = [
         'a',
         'audio',
@@ -220,7 +166,36 @@ function nutmeg(func) {
         'video',
         'canvas'
     ];
-    var attrNames = [
+    // 'this' is to be elified
+    var specialFuncs = [
+        ["append", function() {
+            appendChildren(this.val, arguments);
+        }],
+        ["link", function() {
+            this.style({cursor: 'pointer'});
+            this.onclick(function() {window.location = url;});
+        }],
+        ["style", function() {
+            processStyles(this, arguments);
+        }],
+        ["class", function() {
+            setClasses(this.val, arguments);
+        }],
+        ["attr", function(key, value) {
+            elem.setAttribute(key, value);
+        }],
+        ["prop", function(key, value) {
+            this.val[key] = value;
+        }],
+        ["clear", function() {
+            var elem = this.val;
+            while(elem.firstChild) {
+                elem.removeChild(elem.firstChild);
+            }
+        }]
+    ];
+
+    var attributes = [
         'alt',
         'contenteditable',
         'href',
@@ -230,16 +205,26 @@ function nutmeg(func) {
         'title',
         'type',
         'placeholder'
-    ];
-    var propNames = [
+    ].map(function(attrName) {
+        return [attrName, function(value) {
+            this.val.setAttribute(value);
+        }];
+    });
+
+    var properties = [
         'checked',
         'disabled',
         'height',
         'selected',
         'value',
         'width'
-    ];
-    var eventNames = [
+    ].map(function(propName) {
+        return [propName, function(value) {
+            this.val[propName] = value;
+        }]
+    });
+
+    var events = [
         'onactivate', 
         'onblur',
         'onchange',
@@ -253,31 +238,53 @@ function nutmeg(func) {
         'onmouseout',
         'onmouseover',
         'onmouseup'
-    ];
+    ].map(function(evName) {
+        return [evName, function(func, funcID) {
+            if (funcID === undefined) {
+                funcID = '_priv_' + this.privateID++;
+            }
+            this.events[evName][funcID] = func;
+        }]
+    });
+
+    var eventRemovers = events.map(function(event) {
+        var name = events[0];
+        return ['rem' + name, function(funcID) {
+            delete this.events[name][funcID];
+        }];
+    });
+
     var pseudoEls = [
         ['hover', 11, 10],
         ['focus', 6, 1],
         ['active', 0, 5]
-    ].map(function (p) {return [p[0], eventNames[p[1]], eventNames[p[2]]];});
+    ].map(function (p) {return [p[0], events[p[1]][0], events[p[2]][0]];});
 
-    nutmeg.body = function() {return nutmeg.elify(D.body).append(arguments);};
-
-    var elFuncNames = eventNames.concat(
-        propNames, 
-        attrNames, 
-        specialFuncs.map(function(func) {return func[0];})
+    var elFuncNames = events.concat(
+        eventRemovers,
+        properties, 
+        attributes, 
+        specialFuncs
     );
 
-    elNames.forEach(function(elName) {
-        var result = function() {
-            return nutmeg.elify(D.createElement(elName)).append(arguments);
-        }
+    // Allow *el*.style(...) syntax as well as *el*().style(...)
+    function shortCircuit(elGetter) {
         elFuncNames.forEach(function(func) {
-            result[func] = function() {
-                return result()[func].apply(this, arguments);
+            elGetter[func[0]] = function() {
+                return elGetter()[func[0]].apply(null, arguments);
             }
         });
-        nutmeg[elName] = result;    
+        return elGetter;
+    }
+
+    nutmeg.body = shortCircuit(function() {
+        return nutmeg.elify(D.body).append(arguments);
+    });
+
+    elNames.forEach(function(elName) {
+        nutmeg[elName] = shortCircuit(function() {
+            return nutmeg.elify(D.createElement(elName)).append(arguments);
+        });
     });
 
     nutmeg.mergeStyle = function(root) {

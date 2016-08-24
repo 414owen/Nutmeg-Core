@@ -5,15 +5,34 @@
 <script src="Nutmeg-U.js"></script>
 <script>
 
-nutmeg().global();
-window.onload = function() {
+nutmeg(function() {
+
+    var style = mergeStyle({
+        base: {
+            backgroundColor: '#111'
+        },
+        spaced: {
+            margin: '0.5rem',
+            padding: '0.5rem'
+        },
+        bordered: {
+            borderRadius: '8px'
+        },
+        fib: {
+            depends: ['spaced', 'bordered'],
+            display: 'inline-block',
+            backgroundColor: '#333',
+            color: '#eee'
+        }
+    });
+    
     var timeTaken = 0;
-    var timesToLoad = 1;
+    var timesToLoad = 50;
     for (var i = 0; i < timesToLoad; i++) {
         var startTime = Date.now();
         var curr = 1;
         var prev = 0;
-        body().style(style.base)(
+        body.style(style.base)(
             Array(1500).fill(0).map(function (fib, ind) {
                 var oldc = curr, oldp = prev;
                 curr += prev;
@@ -29,24 +48,7 @@ window.onload = function() {
     console.log("Average load time:", timeTaken / timesToLoad, "ms.");
 };
 
-var style = mergeStyle({
-    base: {
-        backgroundColor: '#111'
-    },
-    spaced: {
-        margin: '0.5rem',
-        padding: '0.5rem'
-    },
-    bordered: {
-        borderRadius: '8px'
-    },
-    fib: {
-        depends: ['spaced', 'bordered'],
-        display: 'inline-block',
-        backgroundColor: '#333',
-        color: '#eee'
-    }
-});
+);
 
 </script>
 </head>

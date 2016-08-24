@@ -81,7 +81,7 @@ var style = mergeStyle({
     }
 });
 
-body().style(style.body)(
+body.style(style.body)(
     div.style(style.center)(
         div.style(style.main)(
             div('This Is Nutmeg').style({fontSize: '3rem'}),
@@ -93,8 +93,8 @@ body().style(style.body)(
                 ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
                 .map(function(button, ind) {
                     return div(i.class(['fa', 'fa-' + button[0]])
-                            .link(button[1]).style(style.icon)
-                            .onmouseover(function() {console.log(button[0]);}));
+                            .link(button[1])
+                            .onmouseover(function() {console.log(button[0]);}).style(style.icon));
                 })
             )
         )
