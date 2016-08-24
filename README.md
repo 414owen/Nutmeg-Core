@@ -29,12 +29,11 @@ A tiny client-side website generator.
 <script src="nutmeg.js"></script>
 <script>
 
-nutmeg().global();
-window.onload = function() {
+// Other examples will not include surrounding HTML
+nutmeg(
 
-// Other examples will not include surrounding HTML, or
-// the above two functions, but they are both very important!
-
+// Nutmeg takes the page code as function parameter
+function() { 
 body(
     div(
         h1('Nutmeg'),
@@ -49,9 +48,10 @@ body(
             )
         )
     )
-)
+)}
 
-}
+);
+
 </script>
 <body>
 </body>
@@ -80,8 +80,8 @@ body(
 
 ### Styles:
 
-Now, this doesn't look very nice. I think we'll need some spacing.  Styles in
-nutmeg are javascript objects, these objects can have dependencies, so you can
+Now, this doesn't look very nice. I think we'll need some spacing. Styles in
+Nutmeg are javascript objects, these objects can have dependencies, so you can
 create complicated styles by only adding one or two lines of code. 
 Remember, javascript doesn't support dashes ('-') in object names, so all
 properties look like camel-cased CSS.
