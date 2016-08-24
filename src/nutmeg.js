@@ -96,41 +96,6 @@ function nutmeg(func) {
             elified.append(arguments);
             return elified;
         }
-        elified.append = function(children) {
-            appendChildren(elem, children);
-            return elified;
-        };
-        elified.link = function(url) {
-            elified.style({cursor: 'pointer'});
-            elified.onclick(function() {window.location = url;});
-            return elified;
-        };
-        elified.style = function() {
-            processStyles(elified, arguments);
-            return elified;
-        };
-        elified.classes = function() {
-            setClasses(elem, arguments);
-            return elified;
-        };
-        /** Change an attribute on the element. */
-        elified.attr = function(key, value) {
-            elem.setAttribute(key, value);
-            return elified;
-        };
-        /** Change a property on the element. */
-        elified.prop = function(key, value) {
-            elem[key] = value;
-            return elified;
-        };
-        /** Remove all children of the element. */
-        elified.clear = function() {
-            while(elem.firstChild) {
-                elem.removeChild(elem.firstChild);
-            }
-            return elified;
-        };
-
         // Add attributes to elified.
         attrNames.forEach(function(attrName) {
             elified[attrName] = function(value) {
@@ -145,7 +110,6 @@ function nutmeg(func) {
                 return elified;
             };
         });
-
         var events = {};
         var privateID = 0;
         eventNames.forEach(function(eventName) {
@@ -170,10 +134,45 @@ function nutmeg(func) {
             };
         });
 
+        specialFuncs.forEach(function(func) {
+            elified[func[0]] = function() {
+                func[1].apply(elified, arguments);
+                return elified;
+            }
+        });
+
         elified.val = elem;
         return elified;
     };
 
+    // 'this' is to be elified
+    var specialFuncs = [
+        ["append", function() {
+            appendChildren(this.val, arguments);
+        }],
+        ["link", function() {
+            this.style({cursor: 'pointer'});
+            this.onclick(function() {window.location = url;});
+        }],
+        ["style", function() {
+            processStyles(this, arguments);
+        }],
+        ["class", function() {
+            setClasses(this.val, arguments);
+        }],
+        ["attr", function(key, value) {
+            elem.setAttribute(key, value);
+        }],
+        ["prop", function(key, value) {
+            this.val[key] = value;
+        }],
+        ["clear", function() {
+            var elem = this.val;
+            while(elem.firstChild) {
+                elem.removeChild(elem.firstChild);
+            }
+        }]
+    ];
     var elNames = [
         'a',
         'audio',
@@ -259,13 +258,14 @@ function nutmeg(func) {
         'onmouseup'
     ];
     var pseudoEls = [
-        ['hover', 'onmouseover', 'onmouseout'],
-        ['focus', 'onfocus', 'onblur'],
-        ['active', 'onactivate', 'ondeactivate']
-    ];
+        ['hover', 11, 10],
+        ['focus', 6, 1],
+        ['active', 0, 5]
+    ].map(function (p) {return [p[0], eventNames[p[1]], eventNames[p[2]]];});
 
     nutmeg.body = function() {return nutmeg.elify(D.body).append(arguments);};
 
+    // TODO - attach values to these that return a new instance and call the right function
     elNames.forEach(function(elName) {
         nutmeg[elName] = function() {
             return nutmeg.elify(D.createElement(elName)).append(arguments);

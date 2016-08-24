@@ -92,7 +92,7 @@ body().style(style.body)(
                 ['linkedin', 'https://www.linkedin.com/in/owen-shepherd-50418b110'],
                 ['envelope', 'mailto:414o' + 'wen@gm' + 'ail.com']]
                 .map(function(button, ind) {
-                    return div(i().classes(['fa', 'fa-' + button[0]])
+                    return div(i().class(['fa', 'fa-' + button[0]])
                             .link(button[1]).style(style.icon)
                             .onmouseover(function() {console.log(button[0]);}));
                 })
