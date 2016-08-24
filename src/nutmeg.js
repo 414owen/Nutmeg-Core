@@ -89,9 +89,6 @@ function nutmeg(func) {
     }
 
     nutmeg.elify = function(elem) {
-        /**
-         * Elified - A Nutmeg Element
-         */
         var elified = function() {
             elified.append(arguments);
             return elified;
@@ -265,11 +262,22 @@ function nutmeg(func) {
 
     nutmeg.body = function() {return nutmeg.elify(D.body).append(arguments);};
 
-    // TODO - attach values to these that return a new instance and call the right function
+    var elFuncNames = eventNames.concat(
+        propNames, 
+        attrNames, 
+        specialFuncs.map(function(func) {return func[0];})
+    );
+
     elNames.forEach(function(elName) {
-        nutmeg[elName] = function() {
+        var result = function() {
             return nutmeg.elify(D.createElement(elName)).append(arguments);
         }
+        elFuncNames.forEach(function(func) {
+            result[func] = function() {
+                return result()[func].apply(this, arguments);
+            }
+        });
+        nutmeg[elName] = result;    
     });
 
     nutmeg.mergeStyle = function(root) {
