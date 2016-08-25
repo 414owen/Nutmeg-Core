@@ -10,7 +10,7 @@ window.onload = function() {
     var curr = 1;
     var prev = 0;
     body().style(style.base)(
-        Array(1500).fill(0).map(function (fib, ind) {
+        Array.apply(null, Array(1500)).map(function (fib, ind) {
             var oldc = curr, oldp = prev;
             curr += prev;
             prev = oldc;
