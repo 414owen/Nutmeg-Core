@@ -105,8 +105,7 @@ function nutmeg(func) {
             elem[name] = allEvents.bind(evs[name]);
         });
         elified.privateID = 0;
-        elFuncNames.forEach(function(func) {
-            // TODO see if we can not create a closure here with bind(this)
+        lazy.forEach(function(func) {
             elified[func[0]] = function() {
                 func[1].apply(elified, arguments);
                 return elified;
@@ -240,18 +239,15 @@ function nutmeg(func) {
         'onmouseup'
     ].map(function(evName) {
         return [evName, function(func, funcID) {
-            if (funcID === undefined) {
-                funcID = '_priv_' + this.privateID++;
+            if (func === null) {
+                delete this.events[evName][funcID];
+            } else {
+                if (funcID === undefined) {
+                    funcID = '_priv_' + this.privateID++;
+                }
+                this.events[evName][funcID] = func;
             }
-            this.events[evName][funcID] = func;
         }]
-    });
-
-    var eventRemovers = events.map(function(event) {
-        var name = events[0];
-        return ['rem' + name, function(funcID) {
-            delete this.events[name][funcID];
-        }];
     });
 
     var pseudoEls = [
@@ -261,7 +257,6 @@ function nutmeg(func) {
     ].map(function (p) {return [p[0], events[p[1]][0], events[p[2]][0]];});
 
     var elFuncNames = events.concat(
-        eventRemovers,
         properties, 
         attributes, 
         specialFuncs
@@ -285,6 +280,12 @@ function nutmeg(func) {
         nutmeg[elName] = shortCircuit(function() {
             return nutmeg.elify(D.createElement(elName)).append(arguments);
         });
+    });
+
+    var lazy = elFuncNames.map(function(func) {
+        return [func[0], function() {
+            func[1].apply(this, arguments);
+        }];
     });
 
     nutmeg.mergeStyle = function(root) {
