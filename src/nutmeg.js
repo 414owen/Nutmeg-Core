@@ -182,7 +182,7 @@ function nutmeg(func) {
             setClasses(this.val, arguments);
         }],
         ["attr", function(key, value) {
-            elem.setAttribute(key, value);
+            this.val.setAttribute(key, value);
         }],
         ["prop", function(key, value) {
             this.val[key] = value;
