@@ -88,10 +88,6 @@ function nutmeg(func) {
         }
     }
 
-    function allEvents() {
-        for (var key in this) {this[key]();}
-    }
-
     nutmeg.elify = function(elem) {
         var elified = function() {
             elified.append(arguments);
@@ -101,11 +97,16 @@ function nutmeg(func) {
         var evs = elified.events = {};
         events.forEach(function(ev) {
             var name = ev[0];
-            evs[name] = {};
-            elem[name] = allEvents.bind(evs[name]);
+            var callbacks = {};
+            evs[name] = callbacks;
+            elem[name] = function() {
+                for (var key in callbacks) {
+                    callbacks[key]();
+                }
+            }
         });
         elified.privateID = 0;
-        lazy.forEach(function(func) {
+        elFuncNames.forEach(function(func) {
             elified[func[0]] = function() {
                 func[1].apply(elified, arguments);
                 return elified;
@@ -280,12 +281,6 @@ function nutmeg(func) {
         nutmeg[elName] = shortCircuit(function() {
             return nutmeg.elify(D.createElement(elName)).append(arguments);
         });
-    });
-
-    var lazy = elFuncNames.map(function(func) {
-        return [func[0], function() {
-            func[1].apply(this, arguments);
-        }];
     });
 
     nutmeg.mergeStyle = function(root) {

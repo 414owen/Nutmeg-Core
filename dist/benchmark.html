@@ -26,13 +26,14 @@ nutmeg(function() {
         }
     });
     
+    var bod = body().style(style.base);
     var timeTaken = 0;
     var timesToLoad = 50;
     for (var i = 0; i < timesToLoad; i++) {
         var startTime = Date.now();
         var curr = 1;
         var prev = 0;
-        body.style(style.base)(
+        bod(
             Array(1500).fill(0).map(function (fib, ind) {
                 var oldc = curr, oldp = prev;
                 curr += prev;
