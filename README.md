@@ -106,28 +106,24 @@ div('The answer is: ')
 As seen above, styles can be applied directly using object literals. For a  
 better system, involving dependencies, pseudo-elements and all sorts of fun, we  
 create a style object.  This structure, on its own, does nothing. We would apply  
-it with the `.style` modifier, for example `div.style(styles.bordered)('Hello  
-World')`
+it with the `.style` modifier, for example 
+```
+div.style(style.example)('Hello World')
+```
 
 ```
 var style = mergeStyle({
     base: {
-        backgroundColor: '#111',
-        fontSize: '12px'
-    },
-    spaced: {
-        margin: '0.5rem',
-        padding: '0.5rem'
+        backgroundColor: '#ccc',
+        fontSize: '20px'
     },
     bordered: {
-        depends: ['spaced'],
-        borderRadius: '8px'
+        borderRadius: '8px',
+        border: '1px solid #111'
     },
-    fib: {
+    example: {
         depends: ['bordered', 'base'],
-        display: 'inline-block',
-        backgroundColor: '#333',
-        color: '#eee'
+        padding: '20px'
     }
 });
 ```
