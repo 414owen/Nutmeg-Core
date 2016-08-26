@@ -160,7 +160,7 @@ body(
     fibs.map(function(fib) {
         // div is taking a number
         return div(fib).style({margin: '20px'});
-    }
+    })
 );
 ```
 
