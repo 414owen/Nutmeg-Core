@@ -207,7 +207,7 @@ function nutmeg(func) {
         'placeholder'
     ].map(function(attrName) {
         return [attrName, function(value) {
-            this.val.setAttribute(value);
+            this.attr(attrName, value);
         }];
     });
 
@@ -220,7 +220,7 @@ function nutmeg(func) {
         'width'
     ].map(function(propName) {
         return [propName, function(value) {
-            this.val[propName] = value;
+            this.prop(value);
         }]
     });
 
