@@ -56,8 +56,8 @@ chain modifiers together very neatly. We have already seen a modifier above.
 form(
     input()
         .placeholder('Type here')
-        .onchange(myfunc),
-    div('Submit').onclick(submitfunc)
+        .onchange(function(e) {console.log(e)}),
+    button('Submit').onclick(function(e) {console.log(e)})
 )
 ```
 
