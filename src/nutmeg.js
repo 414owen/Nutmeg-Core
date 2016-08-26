@@ -172,7 +172,7 @@ function nutmeg() {
         ["append", function() {
             appendChildren(this.val, arguments);
         }],
-        ["link", function() {
+        ["link", function(url) {
             this.style({cursor: 'pointer'});
             this.onclick(function() {window.location = url;});
         }],
