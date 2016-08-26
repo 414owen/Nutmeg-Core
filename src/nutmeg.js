@@ -137,6 +137,7 @@ function nutmeg() {
         'header',
         'hr',
         'i',
+        'img',
         'input',
         'item',
         'label',
@@ -166,7 +167,7 @@ function nutmeg() {
         'video',
         'canvas'
     ];
-    // 'this' is to be elified
+
     var specialFuncs = [
         ["append", function() {
             appendChildren(this.val, arguments);
@@ -255,7 +256,7 @@ function nutmeg() {
     });
 
     var pseudoEls = [
-        ['hover', 11, 10],
+        ['hover', 12, 11],
         ['focus', 6, 1],
         ['active', 0, 5]
     ].map(function (p) {return [p[0], events[p[1]][0], events[p[2]][0]];});
