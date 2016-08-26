@@ -3,6 +3,18 @@
 A tiny website generator.
 All nutmeg code is client-side javascript.
 
+## Table of Contents
+
+* [Nutmeg](#nutmeg)
+  * [Why?](#why)
+  * [What's wrong with?](#whats-wrong-with)
+  * [What does it look like?](#what-does-it-look-like)
+    * [Structure:](#structure)
+    * [Modifiers:](#modifiers)
+    * [Style:](#style)
+    * [Repetition:](#repetition)
+  * [Getting set up](#getting-set-up)
+
 ## Why?
 
 * Neater syntax than HTML

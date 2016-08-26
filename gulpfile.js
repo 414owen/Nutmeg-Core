@@ -2,6 +2,9 @@ var gulp = require('gulp');
 var DEST = 'dist';
 var rename = require("gulp-rename");
 
+var toc    = require('gulp-doctoc'),
+    marked = require('gulp-marked');
+
 /*
 
 gulp.task('doc', function (cb) {
@@ -41,7 +44,6 @@ gulp.task('uglify-compiler', function() {
      }))
 		.pipe(rename('nutmeg.min.js'))
 		.pipe(gulp.dest(DEST));
-})
-
+});
 
 gulp.task('default', ['uglify-compiler']);
