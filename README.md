@@ -53,7 +53,7 @@ Modifiers change a nutmeg element, then return the element. This allows us to
 chain modifiers together very neatly. We have already seen a modifier above.
 
 ```js
-var upper = div();
+var upper = h1();
 
 ...
 
@@ -62,9 +62,7 @@ form(
     input()
         .placeholder('Type here')
         .onkeyup(function(e) {
-            result.clear()(
-                e.target.value.toUpperCase()
-            )
+            result.clear()(e.target.value)
         }),
     button('Submit').onclick(function(e) {console.log(e)})
 )
@@ -105,7 +103,7 @@ div('The answer is: ')
 
 ### Style:
 
-As seen above, styles can be applied directly using the object literals. For a  
+As seen above, styles can be applied directly using object literals. For a  
 better system, involving dependencies, pseudo-elements and all sorts of fun, we  
 create a style object.  This structure, on its own, does nothing. We would apply  
 it with the `.style` modifier, for example `div.style(styles.bordered)('Hello  
