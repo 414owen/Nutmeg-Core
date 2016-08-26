@@ -124,7 +124,7 @@ var style = mergeStyle({
 });
 ```
 
-This structure, on its own does nothing. We would apply it with the `.style` 
+This structure, on its own does nothing. We would apply it with the `.style`  
 modifier, for example:
 
 ```
