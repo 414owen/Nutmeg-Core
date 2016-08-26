@@ -1,19 +1,23 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Nutmeg](#nutmeg)
+  - [Why?](#why)
+  - [What's wrong with?](#whats-wrong-with)
+  - [What does it look like?](#what-does-it-look-like)
+    - [Structure:](#structure)
+    - [Modifiers:](#modifiers)
+    - [Style:](#style)
+    - [Repetition:](#repetition)
+  - [Getting set up](#getting-set-up)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Nutmeg
 
 A tiny website generator.
 All nutmeg code is client-side javascript.
-
-## Table of Contents
-
-* [Nutmeg](#nutmeg)
-  * [Why?](#why)
-  * [What's wrong with?](#whats-wrong-with)
-  * [What does it look like?](#what-does-it-look-like)
-    * [Structure:](#structure)
-    * [Modifiers:](#modifiers)
-    * [Style:](#style)
-    * [Repetition:](#repetition)
-  * [Getting set up](#getting-set-up)
 
 ## Why?
 
@@ -203,9 +207,8 @@ like:
 
 ```
 var n = nutmeg();
-n.body(
-    'Hello World',
-    n.br(),
+n.div(
+    'Hello World'
     n.input.type('file')
 )
 ```
