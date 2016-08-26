@@ -105,11 +105,7 @@ div('The answer is: ')
 
 As seen above, styles can be applied directly using object literals. For a  
 better system, involving dependencies, pseudo-elements and all sorts of fun, we  
-create a style object.  This structure, on its own, does nothing. We would apply  
-it with the `.style` modifier, for example 
-```
-div.style(style.example)('Hello World')
-```
+create a style object.
 
 ```
 var style = mergeStyle({
@@ -126,6 +122,13 @@ var style = mergeStyle({
         padding: '20px'
     }
 });
+```
+
+This structure, on its own does nothing. We would apply it with the `.style` 
+modifier, for example:
+
+```
+div.style(style.example)('Hello World')
 ```
 
 With regards to dependencies, you can have as many as you want, and they will be  
