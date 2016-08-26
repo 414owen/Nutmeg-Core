@@ -7,7 +7,12 @@
 <script src="nutmeg.js"></script>
 <script>
 
-nutmeg(function() {
+window.onload = function() {
+
+var nut = nutmeg();
+for (var key in nut) {
+    eval('var ' + key + '=nut[key];');
+}
 
 var foreground = '#000';
 var background = '#f5f5f5';
@@ -99,9 +104,9 @@ body.style(style.body)(
             )
         )
     )
-);
+)
 
-});
+};
 </script>
 </head>
 

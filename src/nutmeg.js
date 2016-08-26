@@ -315,18 +315,5 @@ function nutmeg(func) {
         return styleGroups;
     };
 
-    nutmeg.bind = function(scope) {
-        Object.keys(nutmeg).forEach(function(key) {
-            scope[key] = nutmeg[key];
-        });
-    };
-
-    nutmeg.global = function() {nutmeg.bind(W);};
-
-    if (func !== undefined) {
-        nutmeg.global();
-        window.onload = func;
-    }
-
     return nutmeg;
 }

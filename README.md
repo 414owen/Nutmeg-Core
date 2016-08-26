@@ -1,15 +1,17 @@
 # Nutmeg
-A tiny client-side website generator.
+
+A tiny website generator.
+All nutmeg code is client-side javascript.
 
 ## Why?
 
+* Neater syntax than HTML
 * Avoid code repetition
 * Better abstraction
 * Improve maintainability
 * Reduce code size
 * Reduce bandwidth usage
 * Reduce load time
-* It's cool
 
 ## What's wrong with?
 
@@ -19,21 +21,19 @@ A tiny client-side website generator.
     * Try to do too many things
     * Are massive libraries
     * Dictate code style / data flow
+* Pure HTML
+    * Closing tags suck
+    * Can't do repetition
+    * Can't use programming techniques on it (easily)
 
-## Examples:
+## What does it look like?
 
-### Basics:
+### Structure:
 
-```
-<html>
-<script src="nutmeg.js"></script>
-<script>
+Nutmeg's goal is to have the cleanest syntax possible, as such, nutmeg has no
+closing tags. Every element is a javascript function.
 
-// Other examples will not include surrounding HTML
-nutmeg(
-
-// Nutmeg takes the page code as a function parameter
-function() { 
+```js
 body(
     div(
         h1('Nutmeg'),
@@ -48,58 +48,80 @@ body(
             )
         )
     )
-)}
-
-);
-
-</script>
-<body>
-</body>
-</html>
+)
 ```
 
-### Repetition:
+### Modifiers:
 
-Nutmeg parameters can be other nutmeg elements, anything that can be
-stringified (eg. numbers), or array-like objects of these. To show this, we
-will find generate an array of the first 1000 fibonacci numbers, and append it
-to body.
+Modifiers change a nutmeg element, then return the element. This allows us to
+chain modifiers together very neatly. We have already seen a modifier above.
 
-```
-var curr = 1;
-var prev = 0;
-body(
-    Array(750).fill(0).map(function (fib, ind) {
-        var oldc = curr, oldp = prev;
-        curr += prev;
-        prev = oldc;
-        return div(oldp);
-    })
-);
+```js
+form(
+    input()
+        .placeholder('Type here')
+        .onchange(myfunc),
+    div('Submit').onclick(submitfunc)
+)
 ```
 
-### Styles:
+There is a shortcut to calling modifiers, which doesn't involve creating the
+element explicitly first.
 
-Now, this doesn't look very nice. I think we'll need some spacing. Styles in
-Nutmeg are javascript objects, these objects can have dependencies, so you can
-create complicated styles by only adding one or two lines of code. 
-Remember, javascript doesn't support dashes ('-') in object names, so all
-properties look like camel-cased CSS.
+```js
+// create input, then apply modifier
+input().placeholder('hello')
+
+// is the exact same as
+input.placeholder('hello')
+```
+
+Also, as the modifiers return a nutmeg element, we can call the modified element
+to add children. This allows modifiers to be used before and after adding
+children.
+
+```js
+// create element with children
+div(
+    'The answer is: ',
+    42
+).style({fontSize: '42px'})
+
+// is the exact same as
+div.style({fontSize: '42px'})(
+    'The answer is: ',
+    42
+)
+
+// is the exact same as
+div('The answer is: ')
+    .style({fontSize: '42px'})(42)
+```
+
+### Style:
+
+As seen above, styles can be applied directly using the object literals. For a
+better system, involving dependencies, pseudo-elements and all sorts of fun, we
+create a style object. This structure, on its own, does nothing. We would apply
+it with the `.style` modifier, for example `div.style(styles.bordered)('Hello
+World')`
 
 ```
 var style = mergeStyle({
     base: {
-        backgroundColor: '#111'
+        backgroundColor: '#111',
+        fontSize: '12px'
     },
     spaced: {
         margin: '0.5rem',
         padding: '0.5rem'
     },
     bordered: {
+        depends: ['spaced'],
         borderRadius: '8px'
     },
     fib: {
-        depends: ['spaced', 'bordered'],
+        depends: ['bordered', 'base'],
         display: 'inline-block',
         backgroundColor: '#333',
         color: '#eee'
@@ -107,17 +129,68 @@ var style = mergeStyle({
 });
 ```
 
-Dependencies make your styles easy to think about, you no longer have to put a
-class in five different places of your css file to avoid reuse, then search for
-the occurances when you want to change it. Instead you have one occurance of
-your style, and can navigate to its dependencies easily if you need to. 
+With regards to dependencies, you can have as many as you want, and they will be
+applied recursively in the order they are declared, so you can overwrite styles
+from your dependencies easily.
 
-Now we'll go ahead and apply this style to all of our 'fib' divs above.
+### Repetition:
 
-``` 
-...
-body.style(style.base)(
-... 
-        return div(oldp).style(style.fib);
-...  
+Nutmeg parameters can be other nutmeg elements, anything that can be stringified
+(eg. numbers), or array-like objects of these. To show this, we will generate an
+array of the first 500 fibonacci numbers, and append it to body.
+
+```
+
+// Generate an array of the first 500 fibonacci numbers
+var curr = 1;
+var prev = 0;
+var fibs = Array.apply(0, Array(500)).map(
+    function (fib, ind) {
+        var oldc = curr, oldp = prev;
+        curr += prev;
+        prev = oldc;
+        return oldp;
+    }
+)
+
+// body is taking an array of nutmeg elements
+body(
+    fibs.map(function(fib) {
+        // div is taking a number
+        return div(fib).style({margin: '20px'});
+    }
+);
+```
+
+## Getting set up
+
+* Create your html page
+* Include the nutmeg library using a script tag or otherwise
+* Paste this into your javascript file:
+
+```
+window.onload = function() {
+    // Declare all nutmeg functions locally
+    var nut = nutmeg();
+    for (var key in nut) {
+        eval('var ' + key + '=nut[key];');
+    }
+
+    // * Insert your nutmeg code here *
+
+}
+```
+
+* Write some code
+
+You can of course use your own way of running code when the document is ready,
+and you don't have to declare nutmeg functions locally, you can do something
+like: 
+
+```
+var n = nutmeg();
+n.div(
+    'Hello World'
+    n.input.type('file')
+)
 ```

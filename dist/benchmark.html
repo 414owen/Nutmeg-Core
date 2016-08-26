@@ -5,7 +5,12 @@
 <script src="Nutmeg-U.js"></script>
 <script>
 
-nutmeg(function() {
+window.onload = function() {
+
+    var nut = nutmeg();
+    for (var key in nut) {
+        eval('var ' + key + '=nut[key];');
+    }
 
     var style = mergeStyle({
         base: {
@@ -46,9 +51,7 @@ nutmeg(function() {
     }
     console.log("Page loaded " + timesToLoad + " times.");
     console.log("Average load time: " + timeTaken / timesToLoad + " ms.");
-}
-
-);
+};
 
 </script>
 </head>
