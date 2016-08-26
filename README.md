@@ -26,7 +26,8 @@ All nutmeg code is client-side javascript.
 
 ### Structure:
 
-Nutmeg's goal is to have the cleanest syntax possible, as such, nutmeg has no closing tags. Every element is a javascript function.
+Nutmeg's goal is to have the cleanest syntax possible, as such, nutmeg has no
+closing tags. Every element is a javascript function.
 
 ```js
 body(
@@ -48,7 +49,8 @@ body(
 
 ### Modifiers:
 
-Modifiers change a nutmeg element, then return the element. This allows us to chain modifiers together very neatly. We have already seen a modifier above.
+Modifiers change a nutmeg element, then return the element. This allows us to
+chain modifiers together very neatly. We have already seen a modifier above.
 
 ```js
 form(
@@ -59,7 +61,9 @@ form(
 )
 ```
 
-There is a shortcut to calling modifiers, which doesn't involve creating the element explicitly first.
+There is a shortcut to calling modifiers, which doesn't involve creating the
+element explicitly first.
+
 ```js
 // create input, then apply modifier
 input().placeholder('hello')
@@ -68,7 +72,9 @@ input().placeholder('hello')
 input.placeholder('hello')
 ```
 
-Also, as the modifiers return a nutmeg element, we can call the modified element to add children. This allows modifiers to be used before and after adding children.
+Also, as the modifiers return a nutmeg element, we can call the modified element
+to add children. This allows modifiers to be used before and after adding
+children.
 
 ```js
 // create element with children
@@ -90,8 +96,12 @@ div('The answer is: ')
 
 ### Style:
 
-As seen above, styles can be applied directly using the object literals. For a better system, involving dependencies, pseudo-elements and all sorts of fun, we create a style object.
-This structure, on its own, does nothing. We would apply it with the `.style` modifier, for example `div.style(styles.bordered)('Hello World')`
+As seen above, styles can be applied directly using the object literals. For a
+better system, involving dependencies, pseudo-elements and all sorts of fun, we
+create a style object.  This structure, on its own, does nothing. We would apply
+it with the `.style` modifier, for example `div.style(styles.bordered)('Hello
+World')`
+
 ```
 var style = mergeStyle({
     base: {
@@ -115,14 +125,15 @@ var style = mergeStyle({
 });
 ```
 
-With regards to dependencies, you can have as many as you want, and they will be applied recursively in the order they are declared, so you can overwrite styles from your dependencies easily.
+With regards to dependencies, you can have as many as you want, and they will be
+applied recursively in the order they are declared, so you can overwrite styles
+from your dependencies easily.
 
 ### Repetition:
 
-Nutmeg parameters can be other nutmeg elements, anything that can be
-stringified (eg. numbers), or array-like objects of these. To show this, we
-will generate an array of the first 500 fibonacci numbers, and append it
-to body.
+Nutmeg parameters can be other nutmeg elements, anything that can be stringified
+(eg. numbers), or array-like objects of these. To show this, we will generate an
+array of the first 500 fibonacci numbers, and append it to body.
 
 ```
 
@@ -168,7 +179,9 @@ window.onload = function() {
 
 * Write some code
 
-You can of course use your own way of running code when the document is ready, and you don't have to declare nutmeg functions locally, you can do something like: 
+You can of course use your own way of running code when the document is ready,
+and you don't have to declare nutmeg functions locally, you can do something
+like: 
 
 ```
 var n = nutmeg();
