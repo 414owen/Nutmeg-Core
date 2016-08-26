@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var DEST = 'dist';
 var rename = require("gulp-rename");
 
+/*
+
 gulp.task('doc', function (cb) {
 	var jsdoc = require('gulp-jsdoc3');
 	var config = require('./jsdoc.json');
@@ -29,16 +31,17 @@ gulp.task('closure-compiler', function () {
 	    .pipe(gulp.dest(DEST));
 });
 
+*/
+
 gulp.task('uglify-compiler', function() {
 	var uglify = require('gulp-uglify');
 	gulp.src('src/*.js')
 		.pipe(uglify({
        preserveComments:'some'
      }))
-		.pipe(rename('Nutmeg-U.js'))
+		.pipe(rename('nutmeg.min.js'))
 		.pipe(gulp.dest(DEST));
 })
 
 
-gulp.task('default', ['closure-compiler', 'uglify-compiler']);
-gulp.task('all', ['doc', 'default'])
+gulp.task('default', ['uglify-compiler']);
