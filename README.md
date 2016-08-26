@@ -53,10 +53,19 @@ Modifiers change a nutmeg element, then return the element. This allows us to
 chain modifiers together very neatly. We have already seen a modifier above.
 
 ```js
+var upper = div();
+
+...
+
 form(
+    result,
     input()
         .placeholder('Type here')
-        .onchange(function(e) {console.log(e)}),
+        .onkeyup(function(e) {
+            result.clear()(
+                e.target.value.toUpperCase()
+            )
+        }),
     button('Submit').onclick(function(e) {console.log(e)})
 )
 ```

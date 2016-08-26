@@ -13,7 +13,7 @@
   *
   */
  
-function nutmeg(func) {
+function nutmeg() {
     var D = document,
         W = window,
         nutmeg = {};
@@ -99,9 +99,9 @@ function nutmeg(func) {
             var name = ev[0];
             var callbacks = {};
             evs[name] = callbacks;
-            elem[name] = function() {
+            elem[name] = function(e) {
                 for (var key in callbacks) {
-                    callbacks[key]();
+                    callbacks[key].apply(elified, [e]);
                 }
             }
         });
@@ -233,6 +233,7 @@ function nutmeg(func) {
         'ondeactivate',
         'onfocus',
         'onkeydown',
+        'onkeypress',
         'onkeyup',
         'onmousedown',
         'onmouseout',
@@ -246,7 +247,9 @@ function nutmeg(func) {
                 if (funcID === undefined) {
                     funcID = '_priv_' + this.privateID++;
                 }
-                this.events[evName][funcID] = func;
+                this.events[evName][funcID] = function(e) {
+                    func.apply(this, [e]);
+                }
             }
         }]
     });
