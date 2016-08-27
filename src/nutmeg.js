@@ -13,7 +13,7 @@
   *
   */
  
-function nutmeg() {
+var Nutmeg = (function() {
     var D = document,
         W = window,
         nutmeg = {};
@@ -320,4 +320,4 @@ function nutmeg() {
     };
 
     return nutmeg;
-}
+})();

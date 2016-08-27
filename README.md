@@ -185,9 +185,8 @@ body(
 ```
 window.onload = function() {
     // Declare all nutmeg functions locally
-    var nut = nutmeg();
-    for (var key in nut) {
-        eval('var ' + key + '=nut[key];');
+    for (var key in Nutmeg) {
+        eval('var ' + key + '=Nutmeg[key];');
     }
 
     // * Insert your nutmeg code here *
@@ -202,7 +201,7 @@ and you don't have to declare nutmeg functions locally, you can do something
 like: 
 
 ```
-var n = nutmeg();
+var n = Nutmeg;
 n.body(
     'Hello World',
     n.br(),

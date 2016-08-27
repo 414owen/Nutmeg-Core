@@ -1,8 +1,7 @@
 window.onload = function() {
 
-    var nut = nutmeg();
-    for (var key in nut) {
-        eval('var ' + key + '=nut[key];');
+    for (var key in Nutmeg) {
+        eval('var ' + key + '=Nutmeg[key];');
     }
 
     var fg = '#eee';
