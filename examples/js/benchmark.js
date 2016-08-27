@@ -11,7 +11,8 @@ window.onload = function() {
     var style = mergeStyle({
         base: {
             backgroundColor: '#111',
-            color: '#ddd'
+            color: '#eee',
+            textAlign: 'center'
         },
         spaced: {
             margin: '0.5rem',
@@ -33,7 +34,20 @@ window.onload = function() {
     }
 
     function randCol() {
-        return 'rgb('+randChan()+','+randChan()+','+randChan()+')';
+        return [randChan(), randChan(), randChan()];
+    }
+
+    var middleAverage = 127 * 3;
+    function contrastCol(col) {
+        if ((col[0] + col[1] + col[2]) > middleAverage) {
+            return [0, 0, 0];
+        } else {
+            return [255, 255, 255];
+        }
+    }
+
+    function colText(col) {
+        return 'rgb('+col[0]+','+col[1]+','+col[2]+')';
     }
 
     var fibs = (function() {
@@ -47,20 +61,23 @@ window.onload = function() {
         });
     })();
 
-    function benchmark(num, col) {
-        body().clear();
+    function benchmark(num) {
+        body.clear();
+        var back = randCol();
+        var text = colText(contrastCol(back));
+        back = colText(back);
         console.log(timesToLoad - num + 1);
         var startTime = Date.now();
         body(
             fibs.map(function(fib) {
-                return div(fib).style(style.fib, {backgroundColor: col})
+                return div(fib).style(style.fib, {backgroundColor: back, color: text})
             })
         );
         timeTaken += Date.now() - startTime;
         if (num > 1) {
             window.setTimeout(
                 function() {
-                    benchmark(num - 1, randCol())
+                    benchmark(num - 1)
                 }, 200
             );
         } else {
@@ -74,12 +91,10 @@ window.onload = function() {
     }
 
     body.clear().style(style.base)(
-        'This page will render ' + fibNum + ' stylized fibonacci numbers on-screen, then delete them.',
+        'This benchmark involves rendering ' + fibNum + ' stylized fibonacci numbers on-screen.',
         br(),
         'It will do this ' + timesToLoad + ' times.',
         br(),
-        'There will be a short delay between page loads.',
-        br(),
-        button('Start').onclick(benchmark.bind(this, timesToLoad, randCol()))
+        button('Start').onclick(benchmark.bind(this, timesToLoad))
     );
 };
