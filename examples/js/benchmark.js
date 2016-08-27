@@ -1,4 +1,3 @@
-
 window.onload = function() {
 
     for (var key in Nutmeg) {
@@ -7,13 +6,13 @@ window.onload = function() {
 
     var timeTaken = 0;
     var timesToLoad = 50;
-    var fibs = 1000;
+    var fibNum = 1000;
 
     function startScreen(num) {
-        var bod = body;
+        var bod = body.style(style.base);
         bod.clear();
-        body(
-            'This page will render ' + fibs + ' stylized fibonacci numbers on-screen, then delete them.',
+        bod(
+            'This page will render ' + fibNum + ' stylized fibonacci numbers on-screen, then delete them.',
             br(),
             'It will do this ' + timesToLoad + ' times.',
             br(),
@@ -33,7 +32,8 @@ window.onload = function() {
 
     var style = mergeStyle({
         base: {
-            backgroundColor: '#111'
+            backgroundColor: '#111',
+            color: '#ddd'
         },
         spaced: {
             margin: '0.5rem',
@@ -49,24 +49,32 @@ window.onload = function() {
         }
     });
 
-    startScreen(5);
 
     function randChan() {
         return Math.floor(Math.random() * 255);
     }
 
+    var fibs = (function() {
+        var curr = 1;
+        var prev = 0;
+        return Array.apply(null, Array(fibNum)).map(function (fib) {
+            var oldc = curr, oldp = prev;
+            curr += prev;
+            prev = oldc;
+            return oldp;
+        });
+    })();
+
+    startScreen(5);
+
     function benchmark(num, r, g, b) {
         body().clear();
         console.log(num);
-        var curr = 1;
-        var prev = 0;
         var startTime = Date.now();
-        body.style(style.base)(
-            Array.apply(null, Array(fibs)).map(function (fib, ind) {
-                var oldc = curr, oldp = prev;
-                curr += prev;
-                prev = oldc;
-                return div(oldp).style(style.fib, {backgroundColor: 'rgb('+r+','+g+','+b+')'});
+        var col = 'rgb('+r+','+g+','+b+')';
+        body(
+            fibs.map(function(fib) {
+                return div(fib).style(style.fib, {backgroundColor: col})
             })
         );
         timeTaken += Date.now() - startTime;
@@ -74,7 +82,7 @@ window.onload = function() {
             window.setTimeout(
                 function() {
                     benchmark(num - 1, randChan(), randChan(), randChan())
-                }, 100
+                }
             );
         } else {
             console.log("Page loaded " + timesToLoad + " times.");
