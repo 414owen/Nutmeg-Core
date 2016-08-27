@@ -64,8 +64,12 @@ window.onload = function() {
                 }, 200
             );
         } else {
-            console.log("Page loaded " + timesToLoad + " times.");
-            console.log("Average load time: " + timeTaken / timesToLoad + " ms.");
+            var averageTime = timeTaken / timesToLoad;
+            var messages = ["Page loaded " + timesToLoad + " times.",
+            "Average load time: " + averageTime + " ms."];
+            body.clear()(messages[0], br(), messages[1]);
+            console.log(messages[0]);
+            console.log(messages[1]);
         }
     }
 
