@@ -8,28 +8,6 @@ window.onload = function() {
     var timesToLoad = 50;
     var fibNum = 1000;
 
-    function startScreen(num) {
-        var bod = body.style(style.base);
-        bod.clear();
-        bod(
-            'This page will render ' + fibNum + ' stylized fibonacci numbers on-screen, then delete them.',
-            br(),
-            'It will do this ' + timesToLoad + ' times.',
-            br(),
-            'It will start in ' + num + ' seconds'
-        )
-        if (num === 0) {
-            benchmark(timesToLoad);
-        }
-        else if (num >= 0) {
-            window.setTimeout(
-                function() {
-                    startScreen(num - 1)
-                }, 1000
-            );
-        }
-    }
-
     var style = mergeStyle({
         base: {
             backgroundColor: '#111',
@@ -54,6 +32,10 @@ window.onload = function() {
         return Math.floor(Math.random() * 255);
     }
 
+    function randCol() {
+        return 'rgb('+randChan()+','+randChan()+','+randChan()+')';
+    }
+
     var fibs = (function() {
         var curr = 1;
         var prev = 0;
@@ -65,13 +47,10 @@ window.onload = function() {
         });
     })();
 
-    startScreen(5);
-
-    function benchmark(num, r, g, b) {
+    function benchmark(num, col) {
         body().clear();
-        console.log(num);
+        console.log(timesToLoad - num + 1);
         var startTime = Date.now();
-        var col = 'rgb('+r+','+g+','+b+')';
         body(
             fibs.map(function(fib) {
                 return div(fib).style(style.fib, {backgroundColor: col})
@@ -81,12 +60,22 @@ window.onload = function() {
         if (num > 1) {
             window.setTimeout(
                 function() {
-                    benchmark(num - 1, randChan(), randChan(), randChan())
-                }
+                    benchmark(num - 1, randCol())
+                }, 200
             );
         } else {
             console.log("Page loaded " + timesToLoad + " times.");
             console.log("Average load time: " + timeTaken / timesToLoad + " ms.");
         }
     }
+
+    body.clear().style(style.base)(
+        'This page will render ' + fibNum + ' stylized fibonacci numbers on-screen, then delete them.',
+        br(),
+        'It will do this ' + timesToLoad + ' times.',
+        br(),
+        'There will be a short delay between page loads.',
+        br(),
+        button('Start').onclick(benchmark.bind(this, timesToLoad, randCol()))
+    );
 };
