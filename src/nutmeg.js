@@ -16,7 +16,13 @@
 var Nutmeg = (function() {
     var D = document,
         W = window,
-        nutmeg = {};
+        nutmeg = {internal: {}};
+
+    nutmeg.internal.eachInArr = function(a, f) {
+        for (var i = 0; i < a.length; i++) {
+            f(a[i]);
+        }
+    }
 
     function addPseudoElEvents(elified, styles, pseudo) {
         elified[pseudo[1]](function() {
@@ -54,9 +60,9 @@ var Nutmeg = (function() {
             }
         } else {
             // If an array, attempt to apply all elements
-            for (var i = 0; i < styles.length; i++) {
-                processStyles(elified, styles[i]);
-            }
+            nutmeg.internal.eachInArr(styles, function(s) {
+                processStyles(elified, s);
+            });
         }
     }
 
@@ -70,8 +76,9 @@ var Nutmeg = (function() {
                 el.appendChild(node);
                 break;
             case 'object':
-                for (var i = 0; i < child.length; i++)
-                    appendChildren(el, child[i]);
+                nutmeg.internal.eachInArr(child, function(c) {
+                    appendChildren(el, c);
+                });
                 break;
             default:
                 appendChildren(el, child.toString())
@@ -82,9 +89,9 @@ var Nutmeg = (function() {
         if (typeof(classes) === 'string') {
             el.classList.add(classes);
         } else {
-            for (var i = 0; i < classes.length; i++) {
-                setClasses(el, classes[i]);
-            }
+            nutmeg.internal.eachInArr(classes, function(c) {
+                setClasses(el, c);
+            });
         }
     }
 
