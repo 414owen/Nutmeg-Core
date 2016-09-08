@@ -9,10 +9,10 @@ All nutmeg code is client-side javascript.
   * [Why?](#why)
   * [What's wrong with?](#whats-wrong-with)
   * [What does it look like?](#what-does-it-look-like)
-    * [Structure:](#structure)
-    * [Modifiers:](#modifiers)
-    * [Style:](#style)
-    * [Repetition:](#repetition)
+    * [Structure](#structure)
+    * [Modifiers](#modifiers)
+    * [Style](#style)
+    * [Repetition](#repetition)
   * [Getting set up](#getting-set-up)
 
 ## Why?
@@ -36,7 +36,7 @@ All nutmeg code is client-side javascript.
 
 ## What does it look like?
 
-### Structure:
+### Structure
 
 Nutmeg's goal is to have the cleanest syntax possible, as such, nutmeg has no  
 closing tags. Every element is a javascript function.
@@ -45,9 +45,9 @@ closing tags. Every element is a javascript function.
 body(
     div(
         h1('Nutmeg'),
-            'Hello World',
+        'Hello World',
+        div(
             div(
-                div(
                 "Don't disturb my nest!",
                 br(),
                 "Thanks.",
@@ -59,7 +59,7 @@ body(
 )
 ```
 
-### Modifiers:
+### Modifiers
 
 Modifiers change a nutmeg element, then return the element. This allows us to  
 chain modifiers together very neatly. We have already seen a modifier above.
@@ -113,7 +113,7 @@ div('The answer is: ')
     .style({fontSize: '42px'})(42)
 ```
 
-### Style:
+### Style
 
 As seen above, styles can be applied directly using object literals. For a  
 better system, involving dependencies, pseudo-elements and all sorts of fun, we  
@@ -147,7 +147,7 @@ With regards to dependencies, you can have as many as you want, and they will be
 applied recursively in the order they are declared, so you can overwrite styles  
 from your dependencies easily.
 
-### Repetition:
+### Repetition
 
 Nutmeg parameters can be other nutmeg elements, anything that can be stringified  
 (eg. numbers), or array-like objects of these. To show this, we will generate an  
