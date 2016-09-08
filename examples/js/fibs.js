@@ -35,19 +35,12 @@ window.onload = function() {
 
     var curr = 1;
     var prev = 0;
-    body(
-        div(
-            h1('Nutmeg'),
-            'Hello World',
-            div(
-                div(
-                    "Don't disturb my nest!",
-                    br(),
-                    "Thanks.",
-                    br(),
-                    a('Take me to the nutmeg repo').href('https://github.com/414owen/Nutmeg')
-                )
-            )
-        )
+    body().style(style.base)(
+        Array.apply(null, Array(1500)).map(function (fib, ind) {
+            var oldc = curr, oldp = prev;
+            curr += prev;
+            prev = oldc;
+            return div(ind + ': ' + oldp).style(style.fib);
+        })
     );
 };
