@@ -30,8 +30,8 @@ gulp.task('uglify-compiler', function() {
             preserveComments:'some',
             maxLineLen: 80
         }))
-		.pipe(rename('nutmeg.uglify.min.js'))
+		.pipe(rename('nutmeg.min.js'))
 		.pipe(gulp.dest(DEST));
 });
 
-gulp.task('default', ['uglify-compiler', 'closure-compiler']);
+gulp.task('default', ['uglify-compiler']);
