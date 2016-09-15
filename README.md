@@ -13,12 +13,10 @@ All nutmeg code is client-side javascript.
     * [Modifiers](#modifiers)
     * [Style](#style)
     * [Repetition](#repetition)
-  * [
-  * Getting set up](#getting-set-up)
+  * [Getting set up](#getting-set-up)
 
 
 ## Why
-?
 
 * Neater syntax than HTML
 * Avoid code repetition
