@@ -13,9 +13,12 @@ All nutmeg code is client-side javascript.
     * [Modifiers](#modifiers)
     * [Style](#style)
     * [Repetition](#repetition)
-  * [Getting set up](#getting-set-up)
+  * [
+  * Getting set up](#getting-set-up)
 
-## Why?
+
+## Why
+?
 
 * Neater syntax than HTML
 * Avoid code repetition
@@ -119,7 +122,7 @@ As seen above, styles can be applied directly using object literals. For a
 better system, involving dependencies, pseudo-elements and all sorts of fun, we  
 create a style object.
 
-```
+```js
 var style = mergeStyle({
     base: {
         backgroundColor: '#ccc',
@@ -139,7 +142,7 @@ var style = mergeStyle({
 This structure, on its own does nothing. We would apply it with the `.style`  
 modifier, for example:
 
-```
+```js
 div.style(style.example)('Hello World')
 ```
 
@@ -153,7 +156,7 @@ Nutmeg parameters can be other nutmeg elements, anything that can be stringified
 (eg. numbers), or array-like objects of these. To show this, we will generate an  
 array of the first 500 fibonacci numbers, and append it to body.
 
-```
+```js
 
 // Generate an array of the first 500 fibonacci numbers
 var curr = 1;
@@ -178,11 +181,12 @@ body(
 
 ## Getting set up
 
+
 * Create your html page
 * Include the nutmeg library using a script tag or otherwise
 * Paste this into your javascript file:
 
-```
+```js
 window.onload = function() {
     // Declare all nutmeg functions locally
     for (var key in Nutmeg) {
@@ -200,7 +204,7 @@ You can of course use your own way of running code when the document is ready,
 and you don't have to declare nutmeg functions locally, you can do something  
 like: 
 
-```
+```js
 var n = Nutmeg;
 n.body(
     'Hello World',
