@@ -1,7 +1,11 @@
 # Nutmeg
 
-A tiny website generator.
-All nutmeg code is client-side javascript.
+A tiny website generator.  
+All nutmeg code is client-side javascript.  
+For an example of Nutmeg in action, see my personal site:  
+[414owen.github.io](https://414owen.github.io)
+
+It is now recommended to use [Nutmeg-Router](https://gitgub.com/414owen/Nutmeg-Router) for building your Nutmeg projects.
 
 ## Table of Contents
 
