@@ -32,7 +32,7 @@ All nutmeg code is client-side javascript.
     * Produce *large* amounts of code
 * The big guys (React / Angular / Other)
     * Try to do too many things
-    * Are massive libraries
+    * Are massive libraries/frameworks
     * Dictate code style / data flow
 
 ## What does it look like?
