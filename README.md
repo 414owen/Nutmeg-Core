@@ -1,7 +1,7 @@
 # Nutmeg
 
 A tiny website generator.  
-All nutmeg code is client-side javascript.  
+All Nutmeg code is client-side javascript.  
 For an example of Nutmeg in action, see my personal site:  
 [414owen.github.io](https://414owen.github.io)
 
@@ -9,7 +9,7 @@ It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-R
 
 ## Table of Contents
 
-* [Nutmeg](#nutmeg)
+* [Nutmeg](#Nutmeg)
   * [Why?](#why)
   * [What's wrong with?](#whats-wrong-with)
   * [What does it look like?](#what-does-it-look-like)
@@ -22,7 +22,7 @@ It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-R
 
 ## Why
 
-* Neater syntax than HTML
+* Neater and smaller syntax than HTML
 * Avoid code repetition
 * Better abstraction
 * Improve maintainability
@@ -43,7 +43,7 @@ It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-R
 
 ### Structure
 
-Nutmeg's goal is to have the cleanest syntax possible, as such, nutmeg has no  
+Nutmeg's goal is to have the cleanest syntax possible, as such, Nutmeg has no  
 closing tags. Every element is a javascript function.
 
 ```js
@@ -57,23 +57,22 @@ body(
                 br(),
                 "Thanks.",
                 br(),
-                a('Take me to the nutmeg repo').href('https://github.com/414owen/Nutmeg')
+                a('Take me to the Nutmeg repo').href('https://github.com/414owen/Nutmeg')
             )
         )
     )
 )
 ```
 
+However, the basic structure of HTML is maintained. Elements enclose other  
+elements.
+
 ### Modifiers
 
-Modifiers change a nutmeg element, then return the element. This allows us to  
+Modifiers change a Nutmeg element, then return the element. This allows us to  
 chain modifiers together very neatly. We have already seen a modifier above.
 
 ```js
-var upper = h1();
-
-...
-
 form(
     result,
     input()
@@ -96,7 +95,7 @@ input().placeholder('hello')
 input.placeholder('hello')
 ```
 
-Also, as the modifiers return a nutmeg element, we can call the modified element  
+Also, as the modifiers return a Nutmeg element, we can call the modified element  
 to add children. This allows modifiers to be used before and after adding  
 children.
 
@@ -141,7 +140,7 @@ var style = mergeStyle({
 });
 ```
 
-This structure, on its own does nothing. We would apply it with the `.style`  
+This structure, on its own, does nothing. We would apply it with the `.style`  
 modifier, for example:
 
 ```js
@@ -154,7 +153,7 @@ from your dependencies easily.
 
 ### Repetition
 
-Nutmeg parameters can be other nutmeg elements, anything that can be stringified  
+Nutmeg parameters can be other Nutmeg elements, anything that can be stringified  
 (eg. numbers), or array-like objects of these. To show this, we will generate an  
 array of the first 500 fibonacci numbers, and append it to body.
 
@@ -172,7 +171,7 @@ var fibs = Array.apply(0, Array(500)).map(
     }
 )
 
-// body is taking an array of nutmeg elements
+// body is taking an array of Nutmeg elements
 body(
     fibs.map(function(fib) {
         // div is taking a number
@@ -185,25 +184,22 @@ body(
 
 
 * Create your html page
-* Include the nutmeg library using a script tag or otherwise
+* Include the Nutmeg library using a script tag or otherwise
 * Paste this into your javascript file:
 
 ```js
 window.onload = function() {
-    // Declare all nutmeg functions locally
-    for (var key in Nutmeg) {
-        eval('var ' + key + '=Nutmeg[key];');
-    }
+    // Declare all Nutmeg functions locally
+	eval(Nutmeg.localScope);
 
-    // * Insert your nutmeg code here *
-
+    // * Insert your Nutmeg code here *
 }
 ```
 
 * Write some code
  
 You can of course use your own way of running code when the document is ready,  
-and you don't have to declare nutmeg functions locally, you can do something  
+and you don't have to declare Nutmeg functions locally, you can do something  
 like: 
 
 ```js
