@@ -3,12 +3,14 @@
  * Copyright (c) 2016 Owen Shepherd
  * This software is open-source under the MIT license.
  * The full license can be viewed here: https://opensource.org/licenses/MIT
+ *
  */
 
  /**
   * @preserve
   * This is Nutmeg. a tiny client-side website generator.
   * Homepage: https://github.com/414owen/Nutmeg
+  *
   */
  
 var Nutmeg = (function() {
@@ -283,8 +285,10 @@ var Nutmeg = (function() {
     }
 
     nutmeg.body = shortCircuit(function() {
-        return nutmeg.elify(D.body).append(arguments);
-    });
+        return nutmeg.elify(D.body).style({margin: 0, padding: 0})(arguments);
+	});
+
+	nutmeg.localScope = "for(var key in Nutmeg){eval('var '+key+'=Nutmeg[key];');}";
 
     elNames.forEach(function(elName) {
         nutmeg[elName] = shortCircuit(function() {
