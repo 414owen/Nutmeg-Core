@@ -228,7 +228,7 @@ var Nutmeg = (function() {
         'width'
     ].map(function(propName) {
         return [propName, function(value) {
-            this.prop(value);
+            this.prop(propName, value);
         }]
     });
 
