@@ -229,8 +229,18 @@ var Nutmeg = (function() {
     ].map(function(propName) {
         return [propName, function(value) {
             this.prop(propName, value);
-        }]
-    });
+        }];
+	});
+
+	var elFuncs = [
+		'focus',
+		'click',
+		'blur'
+	].map(function(funcName) {
+		return [funcName, function() {
+			this.val[funcName]();
+		}];
+	});
 
     var events = [
         'onactivate', 
@@ -259,7 +269,7 @@ var Nutmeg = (function() {
                     func.apply(this, [e]);
                 }
             }
-        }]
+        }];
     });
 
     var pseudoEls = [
@@ -271,7 +281,8 @@ var Nutmeg = (function() {
     var elFuncNames = events.concat(
         properties, 
         attributes, 
-        specialFuncs
+		specialFuncs,
+		elFuncs
     );
 
     // Allow *el*.style(...) syntax as well as *el*().style(...)
