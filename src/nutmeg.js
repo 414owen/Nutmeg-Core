@@ -211,6 +211,7 @@ var Nutmeg = (function() {
 
 	var attributes = [
 		'cols',
+		'colspan',
 		'controls',
 		'height',
 		'loop',
