@@ -225,6 +225,7 @@ var Nutmeg = (function() {
 		'id',
 		'placeholder',
 		'readonly',
+		'rowspan',
 		'src',
 		'title',
 		'type'
