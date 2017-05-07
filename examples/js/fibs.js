@@ -1,8 +1,6 @@
 window.onload = function() {
 
-    for (var key in Nutmeg) {
-        eval('var ' + key + '=Nutmeg[key];');
-    }
+	eval(Nutmeg.localScope);
 
     var fg = '#eee';
     var bg = '#333';
