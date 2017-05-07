@@ -3,7 +3,7 @@
 A tiny website generator.  
 All Nutmeg code is client-side javascript.  
 For an example of Nutmeg in action, see my personal site:  
-[414owen.github.io](https://414owen.github.io)
+[owen.cafe](https://owen.cafe)
 
 It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-Router) for building your Nutmeg projects.
 
@@ -158,7 +158,6 @@ Nutmeg parameters can be other Nutmeg elements, anything that can be stringified
 array of the first 500 fibonacci numbers, and append it to body.
 
 ```js
-
 // Generate an array of the first 500 fibonacci numbers
 var curr = 1;
 var prev = 0;
@@ -169,7 +168,7 @@ var fibs = Array.apply(0, Array(500)).map(
         prev = oldc;
         return oldp;
     }
-)
+);
 
 // body is taking an array of Nutmeg elements
 body(
@@ -189,6 +188,7 @@ body(
 
 ```js
 window.onload = function() {
+
     // Declare all Nutmeg functions locally
 	eval(Nutmeg.localScope);
 
