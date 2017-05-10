@@ -1,4 +1,5 @@
 /**
+ *
  * @license
  * Copyright (c) 2016 Owen Shepherd
  * This software is open-source under the MIT license.
@@ -7,6 +8,7 @@
  */
 
 /**
+ *
  * @preserve
  * This is Nutmeg. a tiny client-side website generator.
  * Homepage: https://github.com/414owen/Nutmeg
@@ -185,10 +187,6 @@ var Nutmeg = (function() {
 		["append", function() {
 			appendChildren(this.val, arguments);
 		}],
-		["link", function(url) {
-			this.style({cursor: 'pointer'});
-			this.onclick(function() {window.location = url;});
-		}],
 		["style", function() {
 			processStyles(this, arguments);
 		}],
@@ -211,7 +209,6 @@ var Nutmeg = (function() {
 
 	var attributes = [
 		'cols',
-		'colspan',
 		'controls',
 		'height',
 		'loop',
