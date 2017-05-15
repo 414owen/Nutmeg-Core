@@ -1,11 +1,12 @@
 # Nutmeg
 
-A tiny website generator.  
-All Nutmeg code is client-side javascript.  
+A 1:1 mapping of HTML code to JavaScript functions.  
+All Nutmeg code is client-side JavaScript.  
 For an example of Nutmeg in action, see my personal site:  
 [owen.cafe](https://owen.cafe)
 
-It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-Router) for building your Nutmeg projects.
+It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-Router)
+for building your Nutmeg projects.
 
 ## Table of Contents
 
@@ -22,7 +23,7 @@ It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-R
 
 ## Why
 
-* Neater and smaller syntax than HTML
+* Functions are neater than xml-esque code
 * Avoid code repetition
 * Better abstraction
 * Improve maintainability
@@ -44,7 +45,7 @@ It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-R
 ### Structure
 
 Nutmeg's goal is to have the cleanest syntax possible, as such, Nutmeg has no  
-closing tags. Every element is a javascript function.
+closing tags. Every element is a JavaScript function.
 
 ```js
 body(
@@ -70,7 +71,8 @@ elements.
 ### Modifiers
 
 Modifiers change a Nutmeg element, then return the element. This allows us to  
-chain modifiers together very neatly. We have already seen a modifier above.
+chain modifiers together very neatly. There are modifiers for changing  
+attributes and properties of elements. We have already seen a modifier above.
 
 ```js
 form(
@@ -120,8 +122,8 @@ div('The answer is: ')
 ### Style
 
 As seen above, styles can be applied directly using object literals. For a  
-better system, involving dependencies, pseudo-elements and all sorts of fun, we  
-create a style object.
+better system, involving dependency management, pseudo-elements and all sorts  
+of fun, we create a style object with mergeStyle().
 
 ```js
 var style = mergeStyle({
@@ -140,16 +142,19 @@ var style = mergeStyle({
 });
 ```
 
-This structure, on its own, does nothing. We would apply it with the `.style`  
-modifier, for example:
+This structure, on its own, does nothing. We would apply it to an element with  
+the `.style` modifier, for example:
 
 ```js
 div.style(style.example)('Hello World')
 ```
 
-With regards to dependencies, you can have as many as you want, and they will be  
-applied recursively in the order they are declared, so you can overwrite styles  
-from your dependencies easily.
+With regards to dependencies, you can have as many as you want, and they will  
+be applied in the order they are declared, so you can overwrite styles from  
+your dependencies easily.
+
+Your dependencies can of course have dependencies, and all styles are resolved  
+by mergeStyle with a depth first search.
 
 ### Repetition
 
@@ -181,10 +186,9 @@ body(
 
 ## Getting set up
 
-
 * Create your html page
 * Include the Nutmeg library using a script tag or otherwise
-* Paste this into your javascript file:
+* Paste this into your JavaScript file:
 
 ```js
 window.onload = function() {
