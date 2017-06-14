@@ -12,7 +12,7 @@ for building your Nutmeg projects.
 
 * [Nutmeg](#Nutmeg)
   * [Why?](#why)
-  * [What's wrong with?](#whats-wrong-with)
+  * [What's wrong with this other thing I use?](#whats-wrong-with-this-other-thing-i-use)
   * [What does it look like?](#what-does-it-look-like)
     * [Structure](#structure)
     * [Modifiers](#modifiers)
@@ -31,7 +31,7 @@ for building your Nutmeg projects.
 * Reduce bandwidth usage
 * Reduce load time
 
-## What's wrong with?
+## What's wrong with this other thing I use?
 
 * Pre-processors:
     * Produce *large* amounts of code
@@ -75,6 +75,10 @@ chain modifiers together very neatly. There are modifiers for changing
 attributes and properties of elements. We have already seen a modifier above.
 
 ```js
+var result = div();
+
+...
+
 form(
     result,
     input()
