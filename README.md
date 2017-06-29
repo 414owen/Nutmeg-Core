@@ -82,7 +82,7 @@ form(
         .onkeyup(function(e) {
             result.clear()(e.target.value)
         }),
-    button('Submit').onclick(function(e) {console.log(e)})
+    button('Submit').onclick(console.log)
 )
 ```
 
