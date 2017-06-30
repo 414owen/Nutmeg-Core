@@ -321,7 +321,7 @@ var Nutmeg = (function() {
 		});
 	});
 
-	nutmeg.mergeStyle = function(root) {
+	nutmeg.styleSheet = function(root) {
 		var styleGroups = {};
 		for (var key in root) {
 			var styles = {base: []};
@@ -352,5 +352,8 @@ var Nutmeg = (function() {
 		}
 		return styleGroups;
 	};
+	
+	// Deprecated name
+	nutmeg.mergeStyle = nutmeg.styleSheet;
 	return nutmeg;
 })();
