@@ -163,6 +163,7 @@ var Nutmeg = (function() {
 		'nav',
 		'noscript',
 		'ol',
+		'option',
 		'p',
 		'pre',
 		'progress',
@@ -257,7 +258,7 @@ var Nutmeg = (function() {
 	});
 
 	var events = [
-		'onactivate', 
+		'onactivate',
 		'onblur',
 		'onchange',
 		'onclick',
@@ -293,8 +294,8 @@ var Nutmeg = (function() {
 	].map(function (p) {return [p[0], events[p[1]][0], events[p[2]][0]];});
 
 	var elFuncNames = events.concat(
-		properties, 
-		attributes, 
+		properties,
+		attributes,
 		specialFuncs,
 		elFuncs
 	);
@@ -352,7 +353,7 @@ var Nutmeg = (function() {
 		}
 		return styleGroups;
 	};
-	
+
 	// Deprecated name
 	nutmeg.mergeStyle = nutmeg.styleSheet;
 	return nutmeg;
