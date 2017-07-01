@@ -3,7 +3,7 @@
 A 1:1 mapping of HTML code to JavaScript functions.  
 All Nutmeg code is client-side JavaScript.  
 For an example of Nutmeg in action, see my personal site: [owen.cafe](https://owen.cafe).  
-To try it out yourself, check out the Live Nutmeg Editor [here](https://owen.cafe/nutmeg/demo/).  
+To try it out yourself, check out the [Live Nutmeg Editor](https://owen.cafe/nutmeg/demo/).  
 There are slides from a presentation about Nutmeg [here](https://owen.cafe/nutmeg/).
 
 
