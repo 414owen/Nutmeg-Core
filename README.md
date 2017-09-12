@@ -4,9 +4,7 @@
 
 A 1:1 mapping of HTML code to JavaScript functions.  
 All Nutmeg code is client-side JavaScript.  
-For an example of Nutmeg in action, see my personal site: [owen.cafe](https://owen.cafe).  
-There are slides from a presentation about Nutmeg [here](https://owen.cafe/nutmeg/).
-
+For an example of Nutmeg in action, see my personal site: [owen.cafe](https://owen.cafe).
 
 It is now recommended to use [Nutmeg-Router](https://github.com/414owen/Nutmeg-Router)
 for building your Nutmeg projects.
